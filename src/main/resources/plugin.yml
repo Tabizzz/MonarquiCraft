@@ -2,5 +2,16 @@ name: MonarquiCraft
 version: '${project.version}'
 main: me.tabizzz.monarquicraft.MonarquiCraft
 api-version: 1.17
-depend: [ AureliumSkills ]
+depend: [ AureliumSkills, MythicMobs, PlaceholderAPI ]
 authors: [ Kokopai ]
+permissions:
+  mc.class.mage:
+    default: false
+  mc.class.melee:
+    default: false
+  mc.class.ranger:
+    default: false
+  mc.class.rank:
+    default: false
+  mc.class.healer:
+    default: false
