@@ -89,12 +89,12 @@ public class StatRoller
 	}
 
 	/**
-	 * Obtiene la cantidad maxima dde estadisticas que puede tener un item a cierto nivel.
+	 * Obtiene la cantidad maxima de estadisticas que puede tener un item a cierto nivel.
 	 */
 	public static int MaxStatPerItem(int level)
 	{
-		var temp = (0.0572 * level * level) + (0.2713 * level) + 0.0912;
-		temp /= 6;
-		return Math.max(0, Math.min(100, (int)Math.round(temp)));
+		var temp = (0.0483 * level * level) + (1.1165 * level) + 5.2533;
+		temp /= 10;
+		return Math.max(1, Math.min(60, (int)Math.round(temp)));
 	}
 }
