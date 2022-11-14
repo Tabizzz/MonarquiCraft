@@ -50,24 +50,27 @@ public class StatRoller
 		return newItem;
 	}
 
-	private static int getGen(float maxVal, float statLevel)
+	private static int getGen(int max, int luck)
 	{
 		Random random = new Random();
-		float maxLuck = maxVal + (statLevel / 5);
-		float minLuck = (-maxVal*2)/((statLevel/150)+1);
-		float gen = random.nextFloat(minLuck, maxLuck + 0.1f);
-		float luckH = ((maxLuck- gen)/5)*(statLevel / 1000);
-		float predev = gen > 0 ? gen / (maxLuck/maxVal) : gen;
-		int dev = (int) (predev + luckH);
-		if(dev > maxVal) dev = (int)maxVal;
-		return dev;
+		float maxLuck = luck < 0 ? max / ((-luck / 75f) + 1) : max + (luck / 5f);
+		float minLuck = luck < 0 ? -max + luck : (-max) / ((luck / 150f) + 1);
+		float gen = random.nextFloat(minLuck, maxLuck);
+		float luckH = 0;
+		float predev;
+		if(luck < 0) {
+			predev = gen < 0 ? (gen * max) / maxLuck : gen;
+		} else {
+			predev = gen < 0 ? gen : (gen * max) / maxLuck;
+		}
+
+		return Math.min(max, Math.max(-max, (int) (predev + luckH)));
 	}
 
 	private static Stat[] getStats(int luck)
 	{
 		var random = new Random();
 		var gen = random.nextInt(0,25);
-		MonarquiCraft.getPlugin().getLogger().info("generated stat with value of " + gen);
 		var count = 0;
 		for (int i = 0; i < 6; i++) {
 			gen -= i+1;
@@ -76,7 +79,6 @@ public class StatRoller
 				break;
 			}
 		}
-		MonarquiCraft.getPlugin().getLogger().info("generated stat with count of " + count);
 		Stat[] stats = Stats.values();
 		Stat[] dev = new Stat[count];
 

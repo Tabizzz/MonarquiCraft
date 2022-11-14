@@ -11,7 +11,7 @@ permissions:
     default: false
   mc.class.ranger:
     default: false
-  mc.class.rank:
+  mc.class.tank:
     default: false
   mc.class.healer:
     default: false
