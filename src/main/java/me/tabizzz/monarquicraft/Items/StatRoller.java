@@ -71,7 +71,7 @@ public class StatRoller
 	{
 		var random = new Random();
 		var gen = random.nextInt(0,25);
-		var count = 0;
+		var count = 1;
 		for (int i = 0; i < 6; i++) {
 			gen -= i+1;
 			if(gen < 0) {
@@ -81,8 +81,6 @@ public class StatRoller
 		}
 		Stat[] stats = Stats.values();
 		Stat[] dev = new Stat[count];
-
-		if(count == 0) return dev;
 
 		List<Stat> list = Arrays.asList(stats);
 		Collections.shuffle(list);

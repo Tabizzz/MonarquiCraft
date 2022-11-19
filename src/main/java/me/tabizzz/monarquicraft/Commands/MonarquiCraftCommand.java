@@ -2,7 +2,11 @@ package me.tabizzz.monarquicraft.Commands;
 
 import com.archyx.aureliumskills.acf.BaseCommand;
 import com.archyx.aureliumskills.acf.annotation.*;
+import me.tabizzz.monarquicraft.Classes.ClassHelper;
+import me.tabizzz.monarquicraft.Items.ItemLore;
+import me.tabizzz.monarquicraft.Items.MCItem;
 import me.tabizzz.monarquicraft.Items.StatRoller;
+import me.tabizzz.monarquicraft.MonarquiCraft;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -10,8 +14,34 @@ import org.bukkit.inventory.ItemStack;
 @CommandAlias("mc|monarquicraft")
 public class MonarquiCraftCommand extends BaseCommand {
 
+	@Subcommand("reload")
+	@CommandPermission("mc.reload")
+	@Description("Recarga el plugin.")
+	public static void reload() {
+		MonarquiCraft.getPlugin().reload();
+	}
+
+	@Subcommand("items give")
+	@CommandCompletion("@players @items")
+	@CommandPermission("mc.items.give")
+	@Description("Da un item custom.")
+	public static void ItemGive(@Flags("other") Player player, String id) {
+		var item = MonarquiCraft.getPlugin().getItemRegistry().getItem(id);
+		player.getInventory().addItem(item);
+	}
+
+	@Subcommand("items lore")
+	@Description("Regenera el lore de un item.")
+	public static void ItemLore(Player sender) {
+		var item = sender.getInventory().getItemInMainHand();
+		var mcitem = new MCItem(item);
+		var lore = new ItemLore(mcitem);
+		lore.writeAll();
+		sender.getInventory().setItemInMainHand(lore.getItem());
+	}
+
 	@Subcommand("items gen")
-	@CommandCompletion("@players @material @range:1-100")
+	@CommandCompletion("@players @material @range:0-100")
 	@CommandPermission("mc.items.gen")
 	@Description("Da un item con estadisticas generadas al azar.")
 	public static void RandomStatsGive(@Flags("other") Player player, Material material, int level) {
@@ -21,7 +51,7 @@ public class MonarquiCraftCommand extends BaseCommand {
 	}
 
 	@Subcommand("items reroll")
-	@CommandCompletion("@players @range:1-100")
+	@CommandCompletion("@players @range:0-100")
 	@CommandPermission("mc.items.reroll")
 	@Description("Genera nuevamente stats para el item en tu mano.")
 	public static void RandomStatsReroll(@Flags("other") Player player, int level) {
@@ -36,6 +66,13 @@ public class MonarquiCraftCommand extends BaseCommand {
 	public static void RandomStatcap(Player sender, int level) {
 		sender.sendMessage("" + StatRoller.MaxStatPerItem(level));
 	}
+
+	@Subcommand("class name")
+	@Description("Dice el nombre de tu clase")
+	public static void ClassName(Player sender) {
+		sender.sendMessage("tu clase es: " + ClassHelper.getPlayerClass(sender).getName());
+	}
+
 
 	@Subcommand("offhand")
 	@Description("Intercambia el objeto de tu mano principal con la mano secundaria")

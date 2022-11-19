@@ -1,0 +1,16 @@
+name: 'example'
+material: paper
+canlevel: false
+ei: prueba
+class: mage
+lore:
+  - lore 1
+  - lore 2
+stats:
+  health: 10
+multipliers:
+  fishing: 15
+requirements:
+  fishing: 15
+attributes:
+  armor: 10
