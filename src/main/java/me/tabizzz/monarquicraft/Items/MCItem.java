@@ -7,6 +7,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,10 @@ public class MCItem
 		this.item = item;
 		_class = Class.NONE;
 		lore = new ArrayList<>();
+		stats = new HashMap<>();
+		attributes = new HashMap<>();
+		multipliers = new HashMap<>();
+		requirements = new HashMap<>();
 		ItemNBT.readMetadata(this);
 	}
 
