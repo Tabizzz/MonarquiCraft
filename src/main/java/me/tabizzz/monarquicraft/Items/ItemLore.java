@@ -8,12 +8,17 @@ import com.archyx.aureliumskills.modifier.Multipliers;
 import com.archyx.aureliumskills.requirement.Requirements;
 import com.archyx.aureliumskills.util.item.ItemUtils;
 import me.tabizzz.monarquicraft.Classes.Class;
+import me.tabizzz.monarquicraft.Utils.AttributeUtils;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ItemLore {
@@ -39,6 +44,7 @@ public class ItemLore {
 	public void writeAll() {
 		lore.clear();
 		writeInfo();
+		writeAtributes();
 		writeEnchants();
 		writeStats();
 		writeMultipliers();
@@ -51,9 +57,73 @@ public class ItemLore {
 		item.setItemMeta(meta);
 	}
 
+	private void writeAtributes() {
+		var src = meta.getAttributeModifiers();
+		if(src == null) return;
+		var attributes = new HashMap<Attribute, Double>();
+
+		for (var atr: Attribute.values()) {
+			if(src.containsKey(atr)) {
+				var value = 0d;
+				for (var attribute: src.get(atr)) {
+					if(attribute.getOperation() == AttributeModifier.Operation.ADD_NUMBER) {
+						value += attribute.getAmount();
+					}
+				}
+				if(value != 0) {
+					attributes.put(atr, value);
+				}
+			}
+		}
+		AttributeUtils.setAttributesToDisplay(attributes);
+		if(attributes.size() > 0) {
+			lore.add("&7&l&m----------&7<&e&lAtributos&7>&7&l&m----------");
+			var df = new DecimalFormat("0.##");
+			for (var attribute: attributes.entrySet()) {
+				lore.add((type == ModifierType.ARMOR ? "&9" : "&2") + getAttributeName(attribute.getKey()) + ": " + df.format(attribute.getValue()));
+			}
+		}
+	}
+
+	private String getAttributeName(Attribute attribute) {
+		switch (attribute) {
+			case GENERIC_MAX_HEALTH -> {
+				return "Salud Máxima";
+			}
+			case GENERIC_FOLLOW_RANGE, ZOMBIE_SPAWN_REINFORCEMENTS, HORSE_JUMP_STRENGTH, GENERIC_FLYING_SPEED -> {
+				return "...";
+			}
+			case GENERIC_KNOCKBACK_RESISTANCE -> {
+				return "Resistencia al empuje";
+			}
+			case GENERIC_MOVEMENT_SPEED -> {
+				return "Velocidad";
+			}
+			case GENERIC_ATTACK_DAMAGE -> {
+				return "Daño por golpe";
+			}
+			case GENERIC_ATTACK_KNOCKBACK -> {
+				return "Empuje de ataque";
+			}
+			case GENERIC_ATTACK_SPEED -> {
+				return "Velocidad de ataque";
+			}
+			case GENERIC_ARMOR -> {
+				return "Armadura";
+			}
+			case GENERIC_ARMOR_TOUGHNESS -> {
+				return "Resistencia de armadura";
+			}
+			case GENERIC_LUCK -> {
+				return "Suerte";
+			}
+		}
+		return  null;
+	}
+
 	private void writeRequirements() {
 		if(mcitem.requirements.size() > 0) {
-			lore.add("&7&l&m---------&7<&c&lRequisitos&7>&7&l&m---------");
+			lore.add("&7&l&m---------&7<&c&lRequisitos&7>&7&l&m----------");
 			var requirements = new Requirements(AureliumAPI.getPlugin());
 			var temp = new ItemStack(Material.EGG);
 			for (var stat: mcitem.requirements.entrySet()) {
@@ -100,7 +170,7 @@ public class ItemLore {
 
 	private void writeStats() {
 		if(mcitem.stats.size() > 0) {
-			lore.add("&7&l&m--------&7<&a&lEstadisticas&7>&7&l&m--------");
+			lore.add("&7&l&m--------&7<&a&lEstadisticas&7>&7&l&m---------");
 			var modifier = new Modifiers(AureliumAPI.getPlugin());
 			var temp = new ItemStack(Material.EGG);
 			for (var stat: mcitem.stats.entrySet()) {
@@ -117,7 +187,7 @@ public class ItemLore {
 	private void writeEnchants() {
 		var enchants = meta.getEnchants();
 		if(enchants.size() > 0) {
-			lore.add("&7&l&m-------&7<&5&lEncantamientos&7>&7&l&m-------");
+			lore.add("&7&l&m-------&7<&5&lEncantamientos&7>&7&l&m--------");
 			for (var enchant : enchants.entrySet()) {
 				var str = "";
 				if (enchant.getKey().isCursed() || enchant.getKey().getKey().getKey().contains("curse")) {

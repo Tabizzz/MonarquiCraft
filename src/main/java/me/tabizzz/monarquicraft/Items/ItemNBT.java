@@ -10,7 +10,11 @@ import com.archyx.aureliumskills.skills.Skills;
 import com.archyx.aureliumskills.stats.Stats;
 import com.archyx.aureliumskills.util.item.ItemUtils;
 import me.tabizzz.monarquicraft.Classes.Class;
+import me.tabizzz.monarquicraft.Utils.AttributeUtils;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+
+import java.util.UUID;
 
 import static org.bukkit.inventory.ItemFlag.*;
 
@@ -30,14 +34,37 @@ public class ItemNBT {
 			// hide all
 			meta.addItemFlags(
 					HIDE_ENCHANTS,
-					//HIDE_ATTRIBUTES,
+					HIDE_ATTRIBUTES,
 					HIDE_UNBREAKABLE,
 					HIDE_DESTROYS,
 					HIDE_PLACED_ON,
 					HIDE_POTION_EFFECTS,
 					HIDE_DYE);
 
-			//todo: attributes
+			var slot = item.getType().getEquipmentSlot();
+			var current = meta.getAttributeModifiers(slot);
+			// clear current attributes
+			if(current!=null) {
+				for (var modifier: current.entries()) {
+					if(modifier.getValue().getName().startsWith("mcbase.") || modifier.getValue().getName().startsWith("mcextra.")) {
+						meta.removeAttributeModifier(modifier.getKey(), modifier.getValue());
+					}
+				}
+			}
+
+			// add default attributes
+			if(mcitem.baseattributes) {
+				var toadd = AttributeUtils.getDefaultAttributeModifiers(item.getType(), slot);
+				for (var add: toadd.entrySet()) {
+					meta.addAttributeModifier(add.getKey(), add.getValue());
+				}
+			}
+
+			// add extra attributes
+			for (var add: mcitem.attributes.entrySet()) {
+				meta.addAttributeModifier(add.getKey(), new AttributeModifier(UUID.randomUUID(), "mcextra.custom", add.getValue(),
+						AttributeModifier.Operation.ADD_NUMBER, slot));
+			}
 		}
 		item.setItemMeta(meta);
 
@@ -81,6 +108,8 @@ public class ItemNBT {
 		} else {
 			nbt.setBoolean("nolevel", true);
 		}
+
+		nbt.setBoolean("baseattributes", mcitem.baseattributes);
 
 		nbt.setString("class", mcitem._class.name());
 
@@ -138,6 +167,8 @@ public class ItemNBT {
 				mcItem.canlevel = true;
 				mcItem.level = nbt.getInteger("level");
 			}
+
+			mcItem.baseattributes = nbt.getBoolean("baseattributes");
 
 			var classname = nbt.getString("class");
 			mcItem._class = Class.valueOf(classname);

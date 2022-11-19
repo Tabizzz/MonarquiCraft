@@ -19,6 +19,8 @@ public class MCItem
 
 	boolean canlevel;
 
+	boolean baseattributes;
+
 	Class _class;
 
 	String name;
@@ -128,5 +130,13 @@ public class MCItem
 
 	public void setEi(String ei) {
 		this.ei = ei;
+	}
+
+	public boolean isBaseattributes() {
+		return baseattributes;
+	}
+
+	public void setBaseattributes(boolean baseattributes) {
+		this.baseattributes = baseattributes;
 	}
 }

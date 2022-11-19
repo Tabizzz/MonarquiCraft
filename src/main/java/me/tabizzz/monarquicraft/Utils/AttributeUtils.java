@@ -10,6 +10,18 @@ import java.util.Map;
 import java.util.UUID;
 
 public class AttributeUtils {
+
+	public static void setAttributesToDisplay(Map<Attribute, Double> attributes){
+		for (var attribute: attributes.entrySet()) {
+			switch (attribute.getKey()) {
+				case GENERIC_ATTACK_SPEED -> attributes.put(attribute.getKey(), attribute.getValue() + 4);
+				case GENERIC_KNOCKBACK_RESISTANCE -> attributes.put(attribute.getKey(), attribute.getValue() * 10);
+				case GENERIC_ATTACK_DAMAGE -> attributes.put(attribute.getKey(), attribute.getValue() + 1);
+				case GENERIC_MOVEMENT_SPEED -> attributes.put(attribute.getKey(), attribute.getValue() * 1000);
+			}
+		}
+	}
+
 	public static Map<Attribute, AttributeModifier> getDefaultAttributeModifiers(Material material, EquipmentSlot slot){
 		switch (slot) {
 
@@ -40,23 +52,23 @@ public class AttributeUtils {
 
 		switch (material) {
 			case CHAINMAIL_HELMET, TURTLE_HELMET, IRON_HELMET, GOLDEN_HELMET ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 2,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 2,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			case LEATHER_HELMET ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 1,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 1,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			case DIAMOND_HELMET -> {
-				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 3,
+				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 3,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
-				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 2,
+				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "mcbase.armor_toughness", 2,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			}
 			case NETHERITE_HELMET -> {
-				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 3,
+				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 3,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
-				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 3,
+				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "mcbase.armor_toughness", 3,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
-				dev.put(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "generic.knockback_resistance", 1/10f,
+				dev.put(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "mcbase.knockback_resistance", 1/10f,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HEAD));
 			}
 		}
@@ -69,26 +81,26 @@ public class AttributeUtils {
 
 		switch (material) {
 			case LEATHER_CHESTPLATE ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 3,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 3,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			case CHAINMAIL_CHESTPLATE, GOLDEN_CHESTPLATE ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 5,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 5,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			case IRON_CHESTPLATE ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 6,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 6,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			case DIAMOND_CHESTPLATE -> {
-				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 8,
+				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 8,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
-				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 2,
+				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "mcbase.armor_toughness", 2,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			}
 			case NETHERITE_CHESTPLATE -> {
-				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 8,
+				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 8,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
-				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 3,
+				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "mcbase.armor_toughness", 3,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
-				dev.put(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "generic.knockback_resistance", 1/10f,
+				dev.put(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "mcbase.knockback_resistance", 1/10f,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.CHEST));
 			}
 		}
@@ -101,29 +113,29 @@ public class AttributeUtils {
 
 		switch (material) {
 			case LEATHER_LEGGINGS ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 2,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 2,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			case GOLDEN_LEGGINGS ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 3,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 3,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			case CHAINMAIL_LEGGINGS ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 4,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 4,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			case IRON_LEGGINGS ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 5,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 5,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			case DIAMOND_LEGGINGS -> {
-				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 6,
+				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 6,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
-				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 2,
+				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "mcbase.armor_toughness", 2,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			}
 			case NETHERITE_LEGGINGS -> {
-				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 6,
+				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 6,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
-				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 3,
+				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "mcbase.armor_toughness", 3,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
-				dev.put(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "generic.knockback_resistance", 1/10f,
+				dev.put(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "mcbase.knockback_resistance", 1/10f,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.LEGS));
 			}
 		}
@@ -136,23 +148,23 @@ public class AttributeUtils {
 
 		switch (material) {
 			case LEATHER_BOOTS, GOLDEN_BOOTS, CHAINMAIL_BOOTS ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 1,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 1,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			case IRON_BOOTS ->
-					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 2,
+					dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 2,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			case DIAMOND_BOOTS -> {
-				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 3,
+				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 3,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
-				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 2,
+				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "mcbase.armor_toughness", 2,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			}
 			case NETHERITE_BOOTS -> {
-				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "generic.armor", 3,
+				dev.put(Attribute.GENERIC_ARMOR, new AttributeModifier(UUID.randomUUID(), "mcbase.armor", 3,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
-				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "generic.armor_toughness", 3,
+				dev.put(Attribute.GENERIC_ARMOR_TOUGHNESS, new AttributeModifier(UUID.randomUUID(), "mcbase.armor_toughness", 3,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
-				dev.put(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "generic.knockback_resistance", 1/10f,
+				dev.put(Attribute.GENERIC_KNOCKBACK_RESISTANCE, new AttributeModifier(UUID.randomUUID(), "mcbase.knockback_resistance", 1/10f,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.FEET));
 			}
 		}
@@ -160,7 +172,7 @@ public class AttributeUtils {
 		return dev;
 	}
 
-	private static Map<Attribute, AttributeModifier> getDefaultAttributeModifiersForOffHand(Material material) {
+	private static Map<Attribute, AttributeModifier> getDefaultAttributeModifiersForOffHand(Material ignoredMaterial) {
 		return new HashMap<>();
 	}
 
@@ -183,9 +195,9 @@ public class AttributeUtils {
 		// special case: trident
 		if(material == Material.TRIDENT) {
 			var dev = new HashMap<Attribute, AttributeModifier>();
-			dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 1.1 - 4,
+			dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 1.1 - 4,
 					AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-			dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 8,
+			dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 8,
 					AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			return dev;
 		}
@@ -198,13 +210,13 @@ public class AttributeUtils {
 
 		switch (material) {
 			case WOODEN_HOE, GOLDEN_HOE ->
-					dev.put(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 1-4,
+					dev.put(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 1-4,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case STONE_HOE ->
-					dev.put(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 2-4,
+					dev.put(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 2-4,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case IRON_HOE ->
-					dev.put(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 3-4,
+					dev.put(Attribute.GENERIC_ATTACK_SPEED, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 3-4,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 		}
 
@@ -216,39 +228,39 @@ public class AttributeUtils {
 
 		switch (material) {
 			case WOODEN_AXE -> {
-				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 6,
+				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 6,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 0.8 - 4,
+				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 0.8 - 4,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			}
 			case GOLDEN_AXE -> {
-				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 6,
+				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 6,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 1 - 4,
+				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 1 - 4,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			}
 			case STONE_AXE -> {
-				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 8,
+				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 8,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 0.8 - 4,
+				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 0.8 - 4,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			}
 			case IRON_AXE -> {
-				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 8,
+				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 8,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 0.9 - 4,
+				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 0.9 - 4,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			}
 			case DIAMOND_AXE -> {
-				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 8,
+				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 8,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 1 - 4,
+				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 1 - 4,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			}
 			case NETHERITE_AXE -> {
-				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 9,
+				dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 9,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 1 - 4,
+				dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 1 - 4,
 						AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			}
 		}
@@ -258,24 +270,24 @@ public class AttributeUtils {
 
 	private static Map<Attribute, AttributeModifier> getDefaultAttributeModifiersForPickaxe(Material material) {
 		var dev = new HashMap<Attribute, AttributeModifier>();
-		dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 1.2 - 4,
+		dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 1.2 - 4,
 				AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 
 		switch (material) {
 			case WOODEN_PICKAXE, GOLDEN_PICKAXE ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 1,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 1,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case STONE_PICKAXE ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 2,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 2,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case IRON_PICKAXE ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 3,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 3,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case DIAMOND_PICKAXE ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 4,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 4,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case NETHERITE_PICKAXE ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 5,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 5,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 		}
 
@@ -284,24 +296,24 @@ public class AttributeUtils {
 
 	private static Map<Attribute, AttributeModifier> getDefaultAttributeModifiersForShovel(Material material) {
 		var dev = new HashMap<Attribute, AttributeModifier>();
-		dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 1 - 4,
+		dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 1 - 4,
 				AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 
 		switch (material) {
 			case WOODEN_SHOVEL, GOLDEN_SHOVEL ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 1.5,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 1.5,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case STONE_SHOVEL ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 2.5,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 2.5,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case IRON_SHOVEL ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 3.5,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 3.5,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case DIAMOND_SHOVEL ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 4.5,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 4.5,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case NETHERITE_SHOVEL ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 5.5,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 5.5,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 		}
 
@@ -310,30 +322,26 @@ public class AttributeUtils {
 
 	private static Map<Attribute, AttributeModifier> getDefaultAttributeModifiersForSword(Material material) {
 		var dev = new HashMap<Attribute, AttributeModifier>();
-		dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "generic.attack_speed", 1.6 - 4,
+		dev.put(Attribute.GENERIC_ATTACK_SPEED,  new AttributeModifier(UUID.randomUUID(), "mcbase.attack_speed", 1.6 - 4,
 				AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 
 		switch (material) {
-			case WOODEN_SWORD ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 3,
-							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
-			case GOLDEN_SWORD ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 4,
+			case WOODEN_SWORD, GOLDEN_SWORD ->
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 3,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case STONE_SWORD ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 5,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 4,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case IRON_SWORD ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 6,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 5,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case DIAMOND_SWORD ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 7,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 6,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 			case NETHERITE_SWORD ->
-					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "generic.attack_damage", 8,
+					dev.put(Attribute.GENERIC_ATTACK_DAMAGE, new AttributeModifier(UUID.randomUUID(), "mcbase.attack_damage", 7,
 							AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND));
 		}
-
 		return dev;
 	}
 }
