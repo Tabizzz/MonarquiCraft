@@ -1,9 +1,8 @@
 package me.tabizzz.monarquicraft.Listeners;
 
-import com.archyx.aureliumskills.util.item.ItemUtils;
 import com.destroystokyo.paper.event.inventory.PrepareGrindstoneEvent;
-import me.tabizzz.monarquicraft.Items.ItemLore;
 import me.tabizzz.monarquicraft.Items.MCItem;
+import me.tabizzz.monarquicraft.Utils.MCItemUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.EnchantItemEvent;
@@ -17,10 +16,9 @@ public class InventoryListener implements Listener {
 	public void OnAnvil(PrepareAnvilEvent event) {
 		var res = event.getResult();
 		if(res == null) return;
-		var mcitem = new MCItem(res);
-		var lore = new ItemLore(mcitem);
-		lore.writeAll();
-		event.setResult(lore.getItem());
+		if(!MCItemUtils.isMCItem(res) && !MCItemUtils.canBeMCItem(res)) return;
+		MCItemUtils.updateLore(res);
+		event.setResult(res);
 	}
 
 	@EventHandler
@@ -34,11 +32,9 @@ public class InventoryListener implements Listener {
 			meta.addEnchant(enchant.getKey(), enchant.getValue(), false);
 		}
 		res.setItemMeta(meta);
-		var mcitem = new MCItem(res);
-		var lore = new ItemLore(mcitem);
-		lore.writeAll();
+		MCItemUtils.updateLore(res);
 		var realmeta = event.getItem().getItemMeta();
-		realmeta.setLore(lore.getItem().getItemMeta().getLore());
+		realmeta.setLore(res.getItemMeta().getLore());
 		event.getItem().setItemMeta(realmeta);
 	}
 
@@ -47,9 +43,7 @@ public class InventoryListener implements Listener {
 		var res = event.getResult();
 		if(res == null) return;
 		var mcitem = new MCItem(res);
-		var lore = new ItemLore(mcitem);
-		lore.writeAll();
-		event.setResult(lore.getItem());
+		event.setResult(mcitem.getItem());
 	}
 
 	@EventHandler
@@ -57,22 +51,15 @@ public class InventoryListener implements Listener {
 	{
 		var res = event.getResult();
 		if(res == null) return;
-		var mcitem = new MCItem(res);
-		var lore = new ItemLore(mcitem);
-		lore.writeAll();
-		event.setResult(lore.getItem());
+		MCItemUtils.updateLore(res);
+		event.setResult(res);
 	}
 
 	@EventHandler
 	public void OnCraft(PrepareItemCraftEvent event) {
 		var res = event.getInventory().getResult();
 		if(res == null) return;
-		var mat = res.getType();
-		if (!ItemUtils.isArmor(mat) && !ItemUtils.isTool(mat) && !ItemUtils.isWeapon(mat)) return;
-
-		var mcitem = new MCItem(res);
-		mcitem.setBaseattributes(true);
-		mcitem.setId(res.getType().getKey().toString());
-		event.getInventory().setResult(mcitem.getItem());
+		if (MCItemUtils.canBeMCItem(res))
+			event.getInventory().setResult(MCItemUtils.createFromVanilla(res).getItem());
 	}
 }
