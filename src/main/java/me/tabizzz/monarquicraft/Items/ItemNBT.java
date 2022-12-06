@@ -29,7 +29,8 @@ public class ItemNBT {
 		var item = mcitem.item;
 		var meta = item.getItemMeta();
 		if (meta != null) {
-			meta.setDisplayName(mcitem.name.replace('&', '§'));
+			if(mcitem.name != null)
+				meta.setDisplayName(mcitem.name.replace('&', '§'));
 
 			// hide all
 			meta.addItemFlags(
