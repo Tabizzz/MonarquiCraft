@@ -4,8 +4,8 @@ import com.archyx.aureliumskills.acf.PaperCommandManager;
 import com.google.common.collect.ImmutableList;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
 import me.tabizzz.monarquicraft.Items.ItemRegistry;
+import me.tabizzz.monarquicraft.Listeners.InventoryListener;
 import org.bukkit.Material;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
@@ -29,8 +29,14 @@ public final class MonarquiCraft extends JavaPlugin {
 		itemRegistry = new ItemRegistry(this);
 
 		registerCommands();
+		registerListeners();
 
 		reload();
+	}
+
+	private void registerListeners() {
+		var manager = getServer().getPluginManager();
+		manager.registerEvents(new InventoryListener(), this);
 	}
 
 	private void loadConfig() {
