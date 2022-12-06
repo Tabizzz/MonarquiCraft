@@ -53,6 +53,22 @@ public class MCItem
 	MCItem() {
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public boolean isCanlevel() {
+		return canlevel;
+	}
+
+	public void setCanlevel(boolean canlevel) {
+		this.canlevel = canlevel;
+	}
+
 	public int getLevel() {
 		return level;
 	}
