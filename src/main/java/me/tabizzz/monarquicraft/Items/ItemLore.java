@@ -252,21 +252,23 @@ public class ItemLore {
 	}
 
 	private void writeInfo() {
-		lore.add("&7&l&m-------&7<&7&lInfo del Equipo&7>&7&l&m-------");
-		var line1 = "&7";
-		if(mcitem.canlevel) {
-			line1 += "Nivel: &f" + mcitem.level + " &7";
-		}
-		if(mcitem._class != Class.NONE) {
-			line1 += "Clase: &6" + mcitem._class.getName();
-		}
-		if(line1.length() > 2) {
-			lore.add(line1);
-			lore.add(" ");
-		}
+		if(mcitem.canlevel || mcitem._class != Class.NONE || !mcitem.lore.isEmpty()) {
+			lore.add("&7&l&m-------&7<&7&lInfo del Equipo&7>&7&l&m-------");
+			var line1 = "&7";
+			if (mcitem.canlevel) {
+				line1 += "Nivel: &f" + mcitem.level + " &7";
+			}
+			if (mcitem._class != Class.NONE) {
+				line1 += "Clase: &6" + mcitem._class.getName();
+			}
+			if (line1.length() > 2) {
+				lore.add(line1);
+				lore.add(" ");
+			}
 
-		for (var line : mcitem.lore) {
-			lore.add("&7" + line);
+			for (var line : mcitem.lore) {
+				lore.add("&7" + line);
+			}
 		}
 	}
 }
