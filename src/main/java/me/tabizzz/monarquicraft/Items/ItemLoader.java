@@ -16,11 +16,16 @@ public class ItemLoader {
 	public static ItemStack load(FileConfiguration config, String id) {
 
 		var name = config.getString("name");
-		name = name == null ? "Default Name" : name;
 
 		var _material = config.getString("material");
 		_material = _material == null ? "STONE" : _material.toUpperCase();
-		var material = Material.valueOf(_material);
+		Material material;
+		try {
+			material = Material.valueOf(_material);
+		} catch (IllegalArgumentException e) {
+			MonarquiCraft.getPlugin().getLogger().severe("Unable to load item " + id + ": invalid material name (" + _material + ")");
+			return null;
+		}
 
 		var canlevel = config.getBoolean("canlevel");
 
@@ -30,7 +35,12 @@ public class ItemLoader {
 
 		var _class = config.getString("class");
 		_class = _class == null ? "NONE" : _class.toUpperCase();
-		var clasS = Class.valueOf(_class);
+		Class clasS = Class.NONE;
+		try {
+			clasS = Class.valueOf(_class);
+		} catch (IllegalArgumentException e) {
+			MonarquiCraft.getPlugin().getLogger().warning("Unable to load item " + id + ": invalid class name (" + _class + ")");
+		}
 
 		var lore = config.getStringList("lore");
 
@@ -43,7 +53,7 @@ public class ItemLoader {
 					var value = statsSection.getDouble(key);
 					stats.put(stat, value);
 				} catch (IllegalArgumentException ignored) {
-					MonarquiCraft.getPlugin().getLogger().warning("Invalid stat name on item " + id);
+					MonarquiCraft.getPlugin().getLogger().warning("Unable to load item " + id + ": invalid stat name (" + key + ")");
 				}
 			}
 		}
@@ -57,7 +67,7 @@ public class ItemLoader {
 					var value = multipliersSection.getDouble(key);
 					multipliers.put(skill, value);
 				} catch (IllegalArgumentException ignored) {
-					MonarquiCraft.getPlugin().getLogger().warning("Invalid multiplier name on item " + id);
+					MonarquiCraft.getPlugin().getLogger().warning("Unable to load item " + id + ": invalid multiplier name (" + key + ")");
 				}
 			}
 		}
@@ -71,7 +81,7 @@ public class ItemLoader {
 					var value = requirementsSection.getInt(key);
 					requirements.put(skill, value);
 				} catch (IllegalArgumentException ignored) {
-					MonarquiCraft.getPlugin().getLogger().warning("Invalid requirement name on item " + id);
+					MonarquiCraft.getPlugin().getLogger().warning("Unable to load item " + id + ": invalid requirement name (" + key + ")");
 				}
 			}
 		}
@@ -90,7 +100,7 @@ public class ItemLoader {
 					attributes.put(attribute, value);
 
 				} catch (IllegalArgumentException ignored) {
-					MonarquiCraft.getPlugin().getLogger().warning("Invalid attribute name on item " + id);
+					MonarquiCraft.getPlugin().getLogger().warning("Unable to load item " + id + ": invalid attribute name (" + key + ")");
 				}
 			}
 		}
