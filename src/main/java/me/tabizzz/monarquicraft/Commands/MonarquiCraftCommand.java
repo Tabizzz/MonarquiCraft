@@ -3,10 +3,9 @@ package me.tabizzz.monarquicraft.Commands;
 import com.archyx.aureliumskills.acf.BaseCommand;
 import com.archyx.aureliumskills.acf.annotation.*;
 import me.tabizzz.monarquicraft.Classes.ClassHelper;
-import me.tabizzz.monarquicraft.Items.ItemLore;
-import me.tabizzz.monarquicraft.Items.MCItem;
 import me.tabizzz.monarquicraft.Items.StatRoller;
 import me.tabizzz.monarquicraft.MonarquiCraft;
+import me.tabizzz.monarquicraft.Utils.MCItemUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -31,13 +30,12 @@ public class MonarquiCraftCommand extends BaseCommand {
 	}
 
 	@Subcommand("items lore")
+	@CommandPermission("mc.items.lore")
 	@Description("Regenera el lore de un item.")
 	public static void ItemLore(Player sender) {
 		var item = sender.getInventory().getItemInMainHand();
-		var mcitem = new MCItem(item);
-		var lore = new ItemLore(mcitem);
-		lore.writeAll();
-		sender.getInventory().setItemInMainHand(lore.getItem());
+		MCItemUtils.updateLore(item);
+		sender.getInventory().setItemInMainHand(item);
 	}
 
 	@Subcommand("items gen")
