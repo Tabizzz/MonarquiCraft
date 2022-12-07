@@ -2,7 +2,6 @@ package me.tabizzz.monarquicraft.Commands;
 
 import com.archyx.aureliumskills.acf.BaseCommand;
 import com.archyx.aureliumskills.acf.annotation.*;
-import me.tabizzz.monarquicraft.Classes.ClassHelper;
 import me.tabizzz.monarquicraft.Items.StatRoller;
 import me.tabizzz.monarquicraft.MonarquiCraft;
 import me.tabizzz.monarquicraft.Utils.MCItemUtils;
@@ -58,6 +57,7 @@ public class MonarquiCraftCommand extends BaseCommand {
 		player.getInventory().setItemInMainHand(res);
 	}
 
+	/*
 	@Subcommand("items statcap")
 	@CommandCompletion("@range:1-100")
 	@Description("Genera nuevamente stats para el item en tu mano.")
@@ -69,7 +69,7 @@ public class MonarquiCraftCommand extends BaseCommand {
 	@Description("Dice el nombre de tu clase")
 	public static void ClassName(Player sender) {
 		sender.sendMessage("tu clase es: " + ClassHelper.getPlayerClass(sender).getName());
-	}
+	}*/
 
 
 	@Subcommand("offhand")

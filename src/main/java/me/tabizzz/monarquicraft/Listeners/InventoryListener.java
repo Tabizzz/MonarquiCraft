@@ -1,7 +1,6 @@
 package me.tabizzz.monarquicraft.Listeners;
 
 import com.destroystokyo.paper.event.inventory.PrepareGrindstoneEvent;
-import me.tabizzz.monarquicraft.Items.MCItem;
 import me.tabizzz.monarquicraft.Utils.MCItemUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,8 +16,12 @@ public class InventoryListener implements Listener {
 	public void OnAnvil(PrepareAnvilEvent event) {
 		var res = event.getResult();
 		if(res == null) return;
-		if(!MCItemUtils.isMCItem(res) && !MCItemUtils.canBeMCItem(res)) return;
-		MCItemUtils.updateLore(res);
+		if(MCItemUtils.isMCItem(res)) {
+			MCItemUtils.updateLore(res);
+		}
+		else if(MCItemUtils.canBeMCItem(res)){
+			res = MCItemUtils.createFromVanilla(res).getItem();
+		}
 		event.setResult(res);
 	}
 
@@ -27,6 +30,8 @@ public class InventoryListener implements Listener {
 		if(event.isCancelled()) return;
 		var res = event.getItem().clone();
 		if(res == null) return;
+		if(!MCItemUtils.isMCItem(res)) return;
+
 		var meta = res.getItemMeta();
 		if (meta == null) return;
 		for (var enchant: event.getEnchantsToAdd().entrySet()) {
@@ -43,8 +48,8 @@ public class InventoryListener implements Listener {
 	public void OnNetherite(PrepareSmithingEvent event) {
 		var res = event.getResult();
 		if(res == null) return;
-		var mcitem = new MCItem(res);
-		event.setResult(mcitem.getItem());
+		if(MCItemUtils.canBeMCItem(res) || MCItemUtils.isMCItem(res))
+			event.setResult(MCItemUtils.createFromVanilla(res).getItem());
 	}
 
 	@EventHandler
@@ -52,7 +57,12 @@ public class InventoryListener implements Listener {
 	{
 		var res = event.getResult();
 		if(res == null) return;
-		MCItemUtils.updateLore(res);
+		if(MCItemUtils.isMCItem(res)) {
+			MCItemUtils.updateLore(res);
+		}
+		else if(MCItemUtils.canBeMCItem(res)){
+			res = MCItemUtils.createFromVanilla(res).getItem();
+		}
 		event.setResult(res);
 	}
 
@@ -68,7 +78,7 @@ public class InventoryListener implements Listener {
 	public void OnCreative(InventoryCreativeEvent event) {
 		var item = event.getCursor();
 		if (item == null) return;
-		if (MCItemUtils.canBeMCItem(item))
+		if (MCItemUtils.canBeMCItem(item) && !MCItemUtils.isMCItem(item))
 			event.setCursor(MCItemUtils.createFromVanilla(item).getItem());
 	}
 }
