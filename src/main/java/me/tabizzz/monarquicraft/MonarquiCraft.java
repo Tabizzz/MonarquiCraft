@@ -5,6 +5,8 @@ import com.google.common.collect.ImmutableList;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
 import me.tabizzz.monarquicraft.Items.ItemRegistry;
 import me.tabizzz.monarquicraft.Listeners.InventoryListener;
+import me.tabizzz.monarquicraft.Support.PlaceholderSupport;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +19,7 @@ public final class MonarquiCraft extends JavaPlugin {
 	private PaperCommandManager commandManager;
 
 	private ItemRegistry itemRegistry;
+	private boolean placeholderAPIEnabled;
 
 	@Override
 	public void onEnable() {
@@ -30,8 +33,21 @@ public final class MonarquiCraft extends JavaPlugin {
 
 		registerCommands();
 		registerListeners();
+		addSupports();
 
 		reload();
+	}
+
+	private void addSupports() {
+		// Checks for PlaceholderAPI
+		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+			new PlaceholderSupport().register();
+			placeholderAPIEnabled = true;
+			getLogger().info("PlaceholderAPI Support Enabled!");
+		}
+		else {
+			placeholderAPIEnabled = false;
+		}
 	}
 
 	private void registerListeners() {
