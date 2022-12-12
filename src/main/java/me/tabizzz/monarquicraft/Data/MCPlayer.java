@@ -3,6 +3,9 @@ package me.tabizzz.monarquicraft.Data;
 import com.archyx.aureliumskills.api.AureliumAPI;
 import me.tabizzz.monarquicraft.Classes.Class;
 import me.tabizzz.monarquicraft.MonarquiCraft;
+import me.tabizzz.monarquicraft.Utils.MCItemUtils;
+import net.kyori.adventure.text.Component;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -26,6 +29,21 @@ public class MCPlayer {
 
 	public void addItem(ItemStack item) {
 		reservedItems.add(item);
+	}
+
+	public void claim() {
+		if(reservedItems.size() == 0) {
+			player.sendMessage(Component.text(ChatColor.GREEN + "No tienes items por reclamar!"));
+			return;
+		}
+		var last = true;
+		while (reservedItems.size() > 0 && last) {
+			var item = reservedItems.remove(reservedItems.size() - 1);
+			last = MCItemUtils.give(player, item);
+		}
+		if(reservedItems.size() == 0) {
+			player.sendMessage(Component.text(ChatColor.GREEN + "Has reclamado todos tus items pendientes"));
+		}
 	}
 
 	public int getLevel() {

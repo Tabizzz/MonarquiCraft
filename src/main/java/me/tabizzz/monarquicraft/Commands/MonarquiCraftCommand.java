@@ -2,9 +2,16 @@ package me.tabizzz.monarquicraft.Commands;
 
 import com.archyx.aureliumskills.acf.BaseCommand;
 import com.archyx.aureliumskills.acf.annotation.*;
+import com.archyx.aureliumskills.util.item.ItemUtils;
+import com.loohp.interactivechat.api.InteractiveChatAPI;
+import com.loohp.interactivechat.libs.net.kyori.adventure.text.Component;
+import com.loohp.interactivechat.utils.InteractiveChatComponentSerializer;
+import me.tabizzz.monarquicraft.Data.MCPlayer;
 import me.tabizzz.monarquicraft.Items.StatRoller;
 import me.tabizzz.monarquicraft.MonarquiCraft;
 import me.tabizzz.monarquicraft.Utils.MCItemUtils;
+import net.md_5.bungee.chat.ComponentSerializer;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,7 +32,13 @@ public class MonarquiCraftCommand extends BaseCommand {
 	@Description("Da un item custom.")
 	public static void ItemGive(@Flags("other") Player player, String id) {
 		var item = MonarquiCraft.getPlugin().getItemRegistry().getItem(id);
-		player.getInventory().addItem(item);
+		MCItemUtils.give(player, item);
+	}
+
+	@Subcommand("claim")
+	@Description("Reclama tus items pendientes")
+	public static void ItemClaim(Player sender) {
+		MCPlayer.get(sender).claim();
 	}
 
 	@Subcommand("items lore")
@@ -56,20 +69,6 @@ public class MonarquiCraftCommand extends BaseCommand {
 		var res = StatRoller.Reroll(item, player, level);
 		player.getInventory().setItemInMainHand(res);
 	}
-
-	/*
-	@Subcommand("items statcap")
-	@CommandCompletion("@range:1-100")
-	@Description("Genera nuevamente stats para el item en tu mano.")
-	public static void RandomStatcap(Player sender, int level) {
-		sender.sendMessage("" + StatRoller.MaxStatPerItem(level));
-	}
-
-	@Subcommand("class name")
-	@Description("Dice el nombre de tu clase")
-	public static void ClassName(Player sender) {
-		sender.sendMessage("tu clase es: " + ClassHelper.getPlayerClass(sender).getName());
-	}*/
 
 
 	@Subcommand("offhand")

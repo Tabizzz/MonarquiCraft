@@ -1,6 +1,7 @@
 package me.tabizzz.monarquicraft.Data;
 
 import me.tabizzz.monarquicraft.Config.ConfigAccessor;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -42,7 +43,8 @@ public class PlayerManager {
 				}
 
 				if(mcplayer.reservedItems.size() > 0) {
-					player.sendMessage("&bTienes items sin reclamar en tu buzón, usa &a/mc mail &bpara reclamarlos");
+					player.sendMessage(ChatColor.GREEN + "Tienes items sin reclamar en tu buzón, usa " + ChatColor.YELLOW + "/mc claim " + ChatColor.GREEN +
+							"para reclamarlos");
 				}
 
 				playerData.put(player.getUniqueId(), mcplayer);
