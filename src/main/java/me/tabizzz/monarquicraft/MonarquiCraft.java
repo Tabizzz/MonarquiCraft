@@ -3,8 +3,11 @@ package me.tabizzz.monarquicraft;
 import com.archyx.aureliumskills.acf.PaperCommandManager;
 import com.google.common.collect.ImmutableList;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
+import me.tabizzz.monarquicraft.Data.MCPlayer;
+import me.tabizzz.monarquicraft.Data.PlayerManager;
 import me.tabizzz.monarquicraft.Items.ItemRegistry;
 import me.tabizzz.monarquicraft.Listeners.InventoryListener;
+import me.tabizzz.monarquicraft.Listeners.PlayerDataListener;
 import me.tabizzz.monarquicraft.Support.PlaceholderSupport;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,7 +22,8 @@ public final class MonarquiCraft extends JavaPlugin {
 	private PaperCommandManager commandManager;
 
 	private ItemRegistry itemRegistry;
-	private boolean placeholderAPIEnabled;
+
+	private PlayerManager playerManager;
 
 	@Override
 	public void onEnable() {
@@ -30,6 +34,7 @@ public final class MonarquiCraft extends JavaPlugin {
 		// creamos el command manager
 		commandManager = new PaperCommandManager(this);
 		itemRegistry = new ItemRegistry(this);
+		playerManager = new PlayerManager(this);
 
 		registerCommands();
 		registerListeners();
@@ -42,17 +47,15 @@ public final class MonarquiCraft extends JavaPlugin {
 		// Checks for PlaceholderAPI
 		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			new PlaceholderSupport().register();
-			placeholderAPIEnabled = true;
 			getLogger().info("PlaceholderAPI Support Enabled!");
 		}
-		else {
-			placeholderAPIEnabled = false;
-		}
+
 	}
 
 	private void registerListeners() {
 		var manager = getServer().getPluginManager();
 		manager.registerEvents(new InventoryListener(), this);
+		manager.registerEvents(new PlayerDataListener(), this);
 	}
 
 	private void loadConfig() {
@@ -92,5 +95,9 @@ public final class MonarquiCraft extends JavaPlugin {
 
 	public ItemRegistry getItemRegistry() {
 		return itemRegistry;
+	}
+
+	public PlayerManager getPlayerManager() {
+		return playerManager;
 	}
 }
