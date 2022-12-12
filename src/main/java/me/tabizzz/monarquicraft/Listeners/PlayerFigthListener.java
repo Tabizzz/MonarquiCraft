@@ -7,7 +7,7 @@ import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.event.player.PlayerItemMendEvent;
 
 public class PlayerFigthListener implements Listener {
-	
+
 	@EventHandler(ignoreCancelled = true)
 	public void ItemDamage(PlayerItemDamageEvent event) {
 		var worldname = event.getPlayer().getWorld().getName();

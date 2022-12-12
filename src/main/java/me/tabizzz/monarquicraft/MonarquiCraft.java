@@ -3,11 +3,13 @@ package me.tabizzz.monarquicraft;
 import com.archyx.aureliumskills.acf.PaperCommandManager;
 import com.google.common.collect.ImmutableList;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
+import me.tabizzz.monarquicraft.Config.MCConfig;
 import me.tabizzz.monarquicraft.Data.MCPlayer;
 import me.tabizzz.monarquicraft.Data.PlayerManager;
 import me.tabizzz.monarquicraft.Items.ItemRegistry;
 import me.tabizzz.monarquicraft.Listeners.InventoryListener;
 import me.tabizzz.monarquicraft.Listeners.PlayerDataListener;
+import me.tabizzz.monarquicraft.Listeners.PlayerFigthListener;
 import me.tabizzz.monarquicraft.Support.PlaceholderSupport;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -25,6 +27,8 @@ public final class MonarquiCraft extends JavaPlugin {
 
 	private PlayerManager playerManager;
 
+	private MCConfig mcConfig;
+
 	@Override
 	public void onEnable() {
 		plugin = this;
@@ -35,6 +39,7 @@ public final class MonarquiCraft extends JavaPlugin {
 		commandManager = new PaperCommandManager(this);
 		itemRegistry = new ItemRegistry(this);
 		playerManager = new PlayerManager(this);
+		mcConfig = new MCConfig(this);
 
 		registerCommands();
 		registerListeners();
@@ -56,18 +61,21 @@ public final class MonarquiCraft extends JavaPlugin {
 		var manager = getServer().getPluginManager();
 		manager.registerEvents(new InventoryListener(), this);
 		manager.registerEvents(new PlayerDataListener(), this);
+		manager.registerEvents(new PlayerFigthListener(), this);
 	}
 
 	private void loadConfig() {
 		getConfig().options().copyDefaults(true);
 		saveDefaultConfig();
-
 	}
 
 	public void reload() {
 		getLogger().info("Loading from files");
+		mcConfig.reload();
+
 		itemRegistry.clearAll();
 		itemRegistry.loadFromFiles();
+
 	}
 
 	private void registerCommands() {
@@ -86,7 +94,7 @@ public final class MonarquiCraft extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		// Plugin shutdown logic
+		playerManager.saveAll();
 	}
 
 	public static MonarquiCraft getPlugin() {
@@ -99,5 +107,9 @@ public final class MonarquiCraft extends JavaPlugin {
 
 	public PlayerManager getPlayerManager() {
 		return playerManager;
+	}
+
+	public MCConfig getMcConfig() {
+		return mcConfig;
 	}
 }
