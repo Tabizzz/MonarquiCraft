@@ -2,8 +2,9 @@ package me.tabizzz.monarquicraft.Support;
 
 import com.archyx.aureliumskills.api.AureliumAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.tabizzz.monarquicraft.Classes.ClassHelper;
+import me.tabizzz.monarquicraft.Data.MCPlayer;
 import me.tabizzz.monarquicraft.MonarquiCraft;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,8 +43,10 @@ public class PlaceholderSupport extends PlaceholderExpansion {
 			return "";
 		}
 
+		var data = new MCPlayer(player);
+
 		if(identifier.equals("level")) {
-			return Math.round(AureliumAPI.getTotalLevel(player) / 15f) + "";
+			return data.getLevel() + "";
 		}
 		if(identifier.equals("pve_level")) {
 			return Math.round((AureliumAPI.getTotalLevel(player) + player.getLevel()) / 15f) + "";
@@ -52,9 +55,13 @@ public class PlaceholderSupport extends PlaceholderExpansion {
 			return (AureliumAPI.getTotalLevel(player) + player.getLevel()) + "";
 		}
 		if (identifier.equals("class_name")) {
-			return ClassHelper.getPlayerClass(player).getName();
+			return data.getPlayerClass().getName();
 		}
-
+		if(identifier.equals("playtime")) {
+			var ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+			var hours = ticks / 20 / 60 / 60;
+			return hours + "h";
+		}
 
 		return null;
 	}
