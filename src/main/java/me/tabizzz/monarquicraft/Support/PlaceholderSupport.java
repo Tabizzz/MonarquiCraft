@@ -43,7 +43,7 @@ public class PlaceholderSupport extends PlaceholderExpansion {
 			return "";
 		}
 
-		var data = new MCPlayer(player);
+		var data = MCPlayer.get(player);
 
 		if(identifier.equals("level")) {
 			return data.getLevel() + "";
