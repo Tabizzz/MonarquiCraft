@@ -5,14 +5,9 @@ import com.google.common.collect.ImmutableList;
 import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
 import me.tabizzz.monarquicraft.Config.MCConfig;
-import me.tabizzz.monarquicraft.Data.MCPlayer;
 import me.tabizzz.monarquicraft.Data.PlayerManager;
 import me.tabizzz.monarquicraft.Items.ItemRegistry;
-import me.tabizzz.monarquicraft.Listeners.EntityListener;
-import me.tabizzz.monarquicraft.Listeners.InventoryListener;
-import me.tabizzz.monarquicraft.Listeners.PlayerDataListener;
-import me.tabizzz.monarquicraft.Listeners.PlayerFigthListener;
-import me.tabizzz.monarquicraft.Listeners.ItemsListener;
+import me.tabizzz.monarquicraft.Listeners.*;
 import me.tabizzz.monarquicraft.Support.PlaceholderSupport;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -121,5 +116,6 @@ public final class MonarquiCraft extends JavaPlugin {
 	public MCConfig getMcConfig() {
 		return mcConfig;
 	}
+
 	public InventoryManager getInventoryManager() { return inventoryManager; }
 }
