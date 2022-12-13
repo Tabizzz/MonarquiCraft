@@ -2,14 +2,17 @@ package me.tabizzz.monarquicraft;
 
 import com.archyx.aureliumskills.acf.PaperCommandManager;
 import com.google.common.collect.ImmutableList;
+import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
 import me.tabizzz.monarquicraft.Config.MCConfig;
 import me.tabizzz.monarquicraft.Data.MCPlayer;
 import me.tabizzz.monarquicraft.Data.PlayerManager;
 import me.tabizzz.monarquicraft.Items.ItemRegistry;
+import me.tabizzz.monarquicraft.Listeners.EntityListener;
 import me.tabizzz.monarquicraft.Listeners.InventoryListener;
 import me.tabizzz.monarquicraft.Listeners.PlayerDataListener;
 import me.tabizzz.monarquicraft.Listeners.PlayerFigthListener;
+import me.tabizzz.monarquicraft.Listeners.ItemsListener;
 import me.tabizzz.monarquicraft.Support.PlaceholderSupport;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -28,6 +31,7 @@ public final class MonarquiCraft extends JavaPlugin {
 	private PlayerManager playerManager;
 
 	private MCConfig mcConfig;
+	private InventoryManager inventoryManager;
 
 	@Override
 	public void onEnable() {
@@ -40,6 +44,7 @@ public final class MonarquiCraft extends JavaPlugin {
 		itemRegistry = new ItemRegistry(this);
 		playerManager = new PlayerManager(this);
 		mcConfig = new MCConfig(this);
+		inventoryManager = new InventoryManager(this);
 
 		registerCommands();
 		registerListeners();
@@ -58,10 +63,14 @@ public final class MonarquiCraft extends JavaPlugin {
 	}
 
 	private void registerListeners() {
+		inventoryManager.invoke();
+
 		var manager = getServer().getPluginManager();
 		manager.registerEvents(new InventoryListener(), this);
 		manager.registerEvents(new PlayerDataListener(), this);
 		manager.registerEvents(new PlayerFigthListener(), this);
+		manager.registerEvents(new ItemsListener(), this);
+		manager.registerEvents(new EntityListener(), this);
 	}
 
 	private void loadConfig() {
@@ -112,4 +121,5 @@ public final class MonarquiCraft extends JavaPlugin {
 	public MCConfig getMcConfig() {
 		return mcConfig;
 	}
+	public InventoryManager getInventoryManager() { return inventoryManager; }
 }

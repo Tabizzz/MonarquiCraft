@@ -8,6 +8,7 @@ import com.loohp.interactivechat.libs.net.kyori.adventure.text.Component;
 import com.loohp.interactivechat.utils.InteractiveChatComponentSerializer;
 import me.tabizzz.monarquicraft.Data.MCPlayer;
 import me.tabizzz.monarquicraft.Items.StatRoller;
+import me.tabizzz.monarquicraft.Menus.InspectMenu;
 import me.tabizzz.monarquicraft.MonarquiCraft;
 import me.tabizzz.monarquicraft.Utils.MCItemUtils;
 import net.md_5.bungee.chat.ComponentSerializer;
@@ -70,6 +71,14 @@ public class MonarquiCraftCommand extends BaseCommand {
 		player.getInventory().setItemInMainHand(res);
 	}
 
+	@Subcommand("inspect")
+	@CommandCompletion("@players")
+	@Description("Inspecciona a otro jugador.")
+	public static void Inspect(Player sender,@Flags("other") Player target ){
+		if(sender != null && target != null) {
+			InspectMenu.Open(sender, target);
+		}
+	}
 
 	@Subcommand("offhand")
 	@Description("Intercambia el objeto de tu mano principal con la mano secundaria")
