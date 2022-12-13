@@ -12,7 +12,7 @@ public class ItemsListener implements Listener {
 	@EventHandler
 	public void OnUse(PlayerInteractEvent event) {
 		if(event.isCancelled()) return;
-		var player = new MCPlayer(event.getPlayer());
+		var player = MCPlayer.get(event.getPlayer());
 		var item = event.getItem();
 		if(item != null && MCItemUtils.isMCItem(item)) {
 			var mcitem = new MCItem(item);

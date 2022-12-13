@@ -4,10 +4,8 @@ import com.archyx.aureliumskills.api.AureliumAPI;
 import com.archyx.aureliumskills.modifier.ModifierType;
 import com.archyx.aureliumskills.modifier.Modifiers;
 import com.archyx.aureliumskills.stats.Stat;
-import com.archyx.aureliumskills.stats.StatRegistry;
 import com.archyx.aureliumskills.stats.Stats;
 import com.archyx.aureliumskills.util.item.ItemUtils;
-import me.tabizzz.monarquicraft.MonarquiCraft;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

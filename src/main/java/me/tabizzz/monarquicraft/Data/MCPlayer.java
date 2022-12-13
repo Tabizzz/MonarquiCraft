@@ -11,8 +11,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 public class MCPlayer {
 	Player player;
@@ -70,4 +68,7 @@ public class MCPlayer {
 	}
 
 
+	public Player getPlayer() {
+		return player;
+	}
 }
