@@ -64,7 +64,7 @@ public final class MonarquiCraft extends JavaPlugin {
 		manager.registerEvents(new InventoryListener(), this);
 		manager.registerEvents(new PlayerDataListener(), this);
 		manager.registerEvents(new PlayerFigthListener(), this);
-		manager.registerEvents(new ItemsListener(), this);
+		manager.registerEvents(new ItemLevelListener(), this);
 		manager.registerEvents(new EntityListener(), this);
 	}
 

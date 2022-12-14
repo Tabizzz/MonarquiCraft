@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerManager {
 	private final JavaPlugin plugin;
@@ -15,7 +16,7 @@ public class PlayerManager {
 
 	public PlayerManager(JavaPlugin plugin) {
 		this.plugin = plugin;
-		playerData = new HashMap<>();
+		playerData = new ConcurrentHashMap<>();
 	}
 
 	public MCPlayer get(Player player) {
@@ -69,6 +70,7 @@ public class PlayerManager {
 				config.set("reservedItems", mcplayer.reservedItems);
 
 				file.saveConfig();
+				playerData.remove(player.getUniqueId());
 			}
 		}.runTaskAsynchronously(plugin);
 	}

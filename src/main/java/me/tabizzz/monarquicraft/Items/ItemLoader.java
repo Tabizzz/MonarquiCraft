@@ -28,6 +28,7 @@ public class ItemLoader {
 		}
 
 		var canlevel = config.getBoolean("canlevel");
+		var level = config.getInt("level");
 
 		var baseattributes = config.getBoolean("baseattributes");
 
@@ -110,6 +111,7 @@ public class ItemLoader {
 		mcitem.name = name;
 		mcitem.id = id;
 		mcitem.canlevel = canlevel;
+		mcitem.level = level;
 		mcitem.baseattributes = baseattributes;
 		mcitem.item = new ItemStack(material);
 		mcitem.ei = ei;
