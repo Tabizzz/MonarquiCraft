@@ -41,6 +41,9 @@ public class MonarquiCraftCommand extends BaseCommand {
 	@Description("Regenera el lore de un item.")
 	public static void ItemLore(Player sender) {
 		var item = sender.getInventory().getItemInMainHand();
+		if(item == null || item.getType() == Material.AIR) {
+			return;
+		}
 		MCItemUtils.updateLore(item);
 		sender.getInventory().setItemInMainHand(item);
 	}
@@ -61,6 +64,9 @@ public class MonarquiCraftCommand extends BaseCommand {
 	@Description("Genera nuevamente stats para el item en tu mano.")
 	public static void RandomStatsReroll(@Flags("other") Player player, int level) {
 		var item = player.getInventory().getItemInMainHand();
+		if(item == null || item.getType() == Material.AIR) {
+			return;
+		}
 		var res = StatRoller.Reroll(item, player, level);
 		player.getInventory().setItemInMainHand(res);
 	}
