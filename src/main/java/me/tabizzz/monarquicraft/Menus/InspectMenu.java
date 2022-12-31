@@ -6,6 +6,7 @@ import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.tabizzz.monarquicraft.MonarquiCraft;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -54,6 +55,26 @@ public class InspectMenu implements InventoryProvider {
 		var pvp = new ItemStack(Material.TOTEM_OF_UNDYING);
 		writePvpInfo(pvp, target);
 		contents.set(0, 8, pvp);
+
+		var stats = new ItemStack(Material.HEART_OF_THE_SEA);
+		writeStats(stats, target);
+		contents.set(5, 8, stats);
+	}
+
+	private void writeStats(ItemStack stats, Player target) {
+		var meta = stats.getItemMeta();
+		meta.setDisplayName("Estadisticas de jugador");
+		var lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
+
+		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_RED + " Fuerza: §f%aureliumskills_strength%"));
+		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.RED + " Vida: §f%aureliumskills_health%"));
+		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.GOLD + " Regeneración: §f%aureliumskills_regeneration%"));
+		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_GREEN + " Suerte: §f%aureliumskills_luck"));
+		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_BLUE + " Sabiduría: §f%aureliumskills_wisdom%"));
+		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_PURPLE + " Resistencia: §f%aureliumskills_toughness%"));
+
+		meta.setLore(lore);
+		stats.setItemMeta(meta);
 	}
 
 	private void writePvpInfo(ItemStack pvp, Player target) {
