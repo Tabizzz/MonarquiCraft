@@ -97,7 +97,6 @@ public final class MonarquiCraft extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		playerManager.saveAll();
 	}
 
 	public static MonarquiCraft getPlugin() {
