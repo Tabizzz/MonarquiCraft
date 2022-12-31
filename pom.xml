@@ -6,7 +6,7 @@
 
     <groupId>me.tabizzz</groupId>
     <artifactId>MonarquiCraft</artifactId>
-    <version>0.1.3</version>
+    <version>0.1.4</version>
     <packaging>jar</packaging>
 
     <name>MonarquiCraft</name>
@@ -114,7 +114,7 @@
         <dependency>
             <groupId>io.github.rysefoxx.inventory</groupId>
             <artifactId>RyseInventory-Plugin</artifactId>
-            <version>1.5.4</version>
+            <version>1.5.6</version>
         </dependency>
     </dependencies>
 </project>
