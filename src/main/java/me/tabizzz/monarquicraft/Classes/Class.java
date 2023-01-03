@@ -2,12 +2,17 @@ package me.tabizzz.monarquicraft.Classes;
 
 public enum Class
 {
-	NONE("Humano"),
-	MELEE("Asesino"),
-	MAGE("Mago"),
-	RANGER("Arquero"),
-	TANK("Tanque"),
-	HEALER("Curador");
+	NONE("Humano"), // armas vanilla
+	MELEE("Asesino"), // dagas (espada)
+	MAGE("Mago"),	//
+	RANGER("Arquero"), // arco
+	TANK("Tanque"), // martillo (hacha)
+	HEALER("Sacerdote"), //
+	BRUISER("Luchador"), // guadaña (hoz)
+	DRUID("Druida"),	//
+	WIZARD("Brujo"), //
+	HUNTER("Cazador"), // ballesta
+	JUGGERNAUT("Juggernaut"); // hacha
 
 	private final String name;
 

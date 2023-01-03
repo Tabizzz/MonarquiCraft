@@ -64,6 +64,21 @@ public class MCPlayer {
 		if(player.hasPermission("mc.class.melee")) {
 			return Class.MELEE;
 		}
+		if(player.hasPermission("mc.class.bruiser")) {
+			return Class.BRUISER;
+		}
+		if(player.hasPermission("mc.class.druid")) {
+			return Class.DRUID;
+		}
+		if(player.hasPermission("mc.class.wizard")) {
+			return Class.WIZARD;
+		}
+		if(player.hasPermission("mc.class.juggernaut")) {
+			return Class.JUGGERNAUT;
+		}
+		if(player.hasPermission("mc.class.hunter")) {
+			return Class.HUNTER;
+		}
 		return Class.NONE;
 	}
 
