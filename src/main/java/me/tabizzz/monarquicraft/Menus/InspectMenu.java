@@ -69,7 +69,7 @@ public class InspectMenu implements InventoryProvider {
 		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_RED + " Fuerza: §f%aureliumskills_strength%"));
 		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.RED + " Vida: §f%aureliumskills_health%"));
 		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.GOLD + " Regeneración: §f%aureliumskills_regeneration%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_GREEN + " Suerte: §f%aureliumskills_luck"));
+		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_GREEN + " Suerte: §f%aureliumskills_luck%"));
 		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_BLUE + " Sabiduría: §f%aureliumskills_wisdom%"));
 		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_PURPLE + " Resistencia: §f%aureliumskills_toughness%"));
 

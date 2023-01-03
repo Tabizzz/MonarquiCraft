@@ -6,6 +6,7 @@ import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
 import me.tabizzz.monarquicraft.Config.MCConfig;
 import me.tabizzz.monarquicraft.Data.PlayerManager;
+import me.tabizzz.monarquicraft.Executables.ExecutableManager;
 import me.tabizzz.monarquicraft.Items.ItemRegistry;
 import me.tabizzz.monarquicraft.Listeners.*;
 import me.tabizzz.monarquicraft.Support.PlaceholderSupport;
@@ -61,6 +62,7 @@ public final class MonarquiCraft extends JavaPlugin {
 		inventoryManager.invoke();
 
 		var manager = getServer().getPluginManager();
+		ExecutableManager.registerEvents(manager, this);
 		manager.registerEvents(new InventoryListener(), this);
 		manager.registerEvents(new PlayerDataListener(), this);
 		manager.registerEvents(new ItemLevelListener(), this);

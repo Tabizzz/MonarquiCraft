@@ -3,6 +3,7 @@ package me.tabizzz.monarquicraft.Commands;
 import com.archyx.aureliumskills.acf.BaseCommand;
 import com.archyx.aureliumskills.acf.annotation.*;
 import me.tabizzz.monarquicraft.Data.MCPlayer;
+import me.tabizzz.monarquicraft.Executables.BrujulaMagica;
 import me.tabizzz.monarquicraft.Items.StatRoller;
 import me.tabizzz.monarquicraft.Menus.InspectMenu;
 import me.tabizzz.monarquicraft.MonarquiCraft;
@@ -88,5 +89,14 @@ public class MonarquiCraftCommand extends BaseCommand {
 
 		sender.getInventory().setItemInMainHand(off);
 		sender.getInventory().setItemInOffHand(main);
+	}
+
+	@Subcommand("rastrear")
+	@CommandCompletion("@players")
+	@Description("Rastrea a un jugador si tiene un bounty")
+	public static void Rastrear(Player sender, @Flags("other") Player target ){
+		if(sender != null && target != null) {
+			BrujulaMagica.setTarget(sender, target);
+		}
 	}
 }
