@@ -6,19 +6,17 @@ import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.tabizzz.monarquicraft.MonarquiCraft;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
+@SuppressWarnings("deprecation")
 public class InspectMenu implements InventoryProvider {
 
 	private static final RyseInventory Menu = RyseInventory.builder()
 			.rows(6)
-			.size(54)
 			.provider(new InspectMenu())
 			.title("Inspeccionando")
 			.build(MonarquiCraft.getPlugin());
@@ -63,50 +61,30 @@ public class InspectMenu implements InventoryProvider {
 
 	private void writeStats(ItemStack stats, Player target) {
 		var meta = stats.getItemMeta();
-		meta.setDisplayName("Estadisticas de jugador");
-		var lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
-
-		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_RED + " Fuerza: §f%aureliumskills_strength%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.RED + " Vida: §f%aureliumskills_health%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.GOLD + " Regeneración: §f%aureliumskills_regeneration%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_GREEN + " Suerte: §f%aureliumskills_luck%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_BLUE + " Sabiduría: §f%aureliumskills_wisdom%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, ChatColor.DARK_PURPLE + " Resistencia: §f%aureliumskills_toughness%"));
-
-		meta.setLore(lore);
+		meta.setDisplayName(InspectMenuConfig.Instance.getHeartTitle(target));
+		meta.setLore(InspectMenuConfig.Instance.getHeartLore(target));
 		stats.setItemMeta(meta);
 	}
 
 	private void writePvpInfo(ItemStack pvp, Player target) {
 		var meta = pvp.getItemMeta();
-		meta.setDisplayName("Información de pvp");
-		var lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
-
-		lore.add(PlaceholderAPI.setPlaceholders(target, "§fKDR: §a%simpleclans_kdr%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, "§fKills: §b%simpleclans_total_kills%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, "§fMuertes: §c%simpleclans_deaths%"));
-
-		meta.setLore(lore);
+		meta.setDisplayName(InspectMenuConfig.Instance.getTotemTitle(target));
+		meta.setLore(InspectMenuConfig.Instance.getTotemLore(target));
 		pvp.setItemMeta(meta);
 	}
 
 	private void writeClanInfo(ItemStack clan, Player target) {
 		var meta = clan.getItemMeta();
-		meta.setDisplayName("Información de clan");
-		var lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
+		meta.setDisplayName(InspectMenuConfig.Instance.getBannerTitle(target));
 
 		var inclan = PlaceholderAPI.setPlaceholders(target, "%simpleclans_in_clan%").equals("yes");
 
 		if(inclan) {
-			lore.add(PlaceholderAPI.setPlaceholders(target, "§fClan: §a%simpleclans_clan_name%"));
-			lore.add(PlaceholderAPI.setPlaceholders(target, "§fClan Tag: §b%simpleclans_tag_label%"));
-			lore.add(PlaceholderAPI.setPlaceholders(target, "§fRango: §c%simpleclans_rank_displayname%"));
-			lore.add(PlaceholderAPI.setPlaceholders(target, "§fFecha ingreso: §d%simpleclans_join_date%"));
+			meta.setLore(InspectMenuConfig.Instance.getBannerLore(target));
 		} else {
-			lore.add("§c" + target.getName() + " no se encuentra en un clan");
+			meta.setLore(InspectMenuConfig.Instance.getBannerLoreNoClan(target));
 		}
 
-		meta.setLore(lore);
 		clan.setItemMeta(meta);
 	}
 
@@ -137,15 +115,8 @@ public class InspectMenu implements InventoryProvider {
 
 	private void writePlayerInfo(ItemStack skull, Player target) {
 		var meta = skull.getItemMeta();
-		meta.setDisplayName(target.getName());
-		var lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>();
-
-		lore.add(PlaceholderAPI.setPlaceholders(target, "§fNivel:   §a%monarquicraft_level%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, "§fPoder: §b%aureliumskills_power%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, "§fRango: §c%aureliumskills_rank%"));
-		lore.add(PlaceholderAPI.setPlaceholders(target, "§fTiempo Jugado: §d%monarquicraft_playtime%"));
-
-		meta.setLore(lore);
+		meta.setDisplayName(InspectMenuConfig.Instance.getSkullTitle(target));
+		meta.setLore(InspectMenuConfig.Instance.getSkullLore(target));
 		skull.setItemMeta(meta);
 	}
 }

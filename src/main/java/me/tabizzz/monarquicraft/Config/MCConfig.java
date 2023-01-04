@@ -8,6 +8,9 @@ public class MCConfig {
 
 	public MCConfig(JavaPlugin plugin) {
 		config = new ConfigAccessor(plugin, "config.yml");
+		config.saveDefaultConfig();
+		config.reloadConfig();
+		config.saveConfig();
 	}
 
 	public void reload() {

@@ -18,6 +18,8 @@ public class MessagesConfig {
 	public MessagesConfig(JavaPlugin plugin) {
 		config = new ConfigAccessor(plugin, "messages.yml");
 		config.saveDefaultConfig();
+		config.reloadConfig();
+		config.saveConfig();
 		messages = new ConcurrentHashMap<>();
 	}
 

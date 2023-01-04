@@ -57,11 +57,6 @@ public class PlaceholderSupport extends PlaceholderExpansion {
 		if (identifier.equals("class_name")) {
 			return data.getPlayerClass().getName();
 		}
-		if(identifier.equals("playtime")) {
-			var ticks = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
-			var hours = ticks / 20 / 60 / 60;
-			return hours + "h";
-		}
 
 		return null;
 	}

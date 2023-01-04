@@ -54,6 +54,7 @@ public class ConfigAccessor {
 		InputStream defConfigStream = plugin.getResource(fileName);
 		if (defConfigStream != null) {
 			YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream));
+			fileConfiguration.options().copyDefaults(true);
 			fileConfiguration.setDefaults(defConfig);
 		}
 	}

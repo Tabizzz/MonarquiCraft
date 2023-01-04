@@ -10,6 +10,7 @@ import me.tabizzz.monarquicraft.Data.PlayerManager;
 import me.tabizzz.monarquicraft.Executables.ExecutableManager;
 import me.tabizzz.monarquicraft.Items.ItemRegistry;
 import me.tabizzz.monarquicraft.Listeners.*;
+import me.tabizzz.monarquicraft.Menus.InspectMenuConfig;
 import me.tabizzz.monarquicraft.Support.PlaceholderSupport;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -35,15 +36,16 @@ public final class MonarquiCraft extends JavaPlugin {
 	public void onEnable() {
 		plugin = this;
 
-		loadConfig();
-
 		// creamos el command manager
+		mcConfig = new MCConfig(this);
 		commandManager = new PaperCommandManager(this);
 		itemRegistry = new ItemRegistry(this);
 		playerManager = new PlayerManager(this);
-		mcConfig = new MCConfig(this);
 		inventoryManager = new InventoryManager(this);
 		messagesConfig = new MessagesConfig(this);
+
+		//singletons
+		InspectMenuConfig.Instance = new InspectMenuConfig(this);
 
 		registerCommands();
 		registerListeners();
@@ -73,15 +75,11 @@ public final class MonarquiCraft extends JavaPlugin {
 		manager.registerEvents(new PlayerLevelListener(), this);
 	}
 
-	private void loadConfig() {
-		getConfig().options().copyDefaults(true);
-		saveDefaultConfig();
-	}
-
 	public void reload() {
 		getLogger().info("Loading from files");
 		mcConfig.reload();
 		messagesConfig.reload();
+		InspectMenuConfig.Instance.reload();
 
 		itemRegistry.clearAll();
 		itemRegistry.loadFromFiles();

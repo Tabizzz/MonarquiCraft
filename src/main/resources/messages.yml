@@ -1,5 +1,5 @@
-playerNoSpace: '&cEl item <item> &cno ha podido ser agregado a tu inventario: '' usa &e/mc claim &cpara reclamarlo cuando tengas el inventario libre.'
-playerItemsForClaim: '&aTienes items sin reclamar en tu buzón: '' usa &e/mc claim &apara reclamarlos.'
+playerNoSpace: '&cEl item <item> &cno ha podido ser agregado a tu inventario: usa &e/mc claim &cpara reclamarlo cuando tengas el inventario libre.'
+playerItemsForClaim: '&aTienes items sin reclamar en tu buzón: usa &e/mc claim &apara reclamarlos.'
 playerMaxSkill: '&f<player> ha subido la skill &5[<skill>] &fal nivel maximo!'
 itemRequireLevel: '&cNecesitas tener nivel &6<level> &cpara usar <item>&c.'
 bmRequired: '&cDebes tener una brújula rastreadora en tu mano.'

@@ -1,0 +1,34 @@
+SkullTitle: '%player_name%'
+SkullLore:
+  - '&fNivel:   &a%monarquicraft_level%'
+  - '&fPoder: &b%aureliumskills_power%'
+  - '&fRango: &c%aureliumskills_rank%'
+  - '&fTiempo Jugado: &d%statistic_hours_played%h'
+
+BannerTitle: 'Información de clan'
+BannerLore:
+  - '&fClan: &a%simpleclans_clan_name%'
+  - '&fClan Tag: &b%simpleclans_tag_label%'
+  - '&fRango: &c%simpleclans_rank_displayname%'
+  - '&fFecha ingreso: &d%simpleclans_join_date%'
+BannerLoreNoClan:
+  - '&c%player_name% no se encuentra en un clan'
+
+TotemTitle: 'Información de pvp'
+TotemLore:
+  - '&fKDR: &a%simpleclans_kdr%'
+  - '&fKills: &b%simpleclans_total_kills%'
+  - '&fMuertes: &c%simpleclans_deaths%'
+  - ' '
+  - '&fDaño realizado: &d%statistic_damage_dealt%'
+  - '&fDaño recibido: &e%statistic_damage_taken%'
+
+HeartTitle: 'Estadisticas de jugador'
+HeartLore:
+  - '&4 Fuerza: &f%aureliumskills_strength%'
+  - '&c Vida: &f%aureliumskills_health%'
+  - '&6 Regeneración: &f%aureliumskills_regeneration%'
+  - '&2 Suerte: &f%aureliumskills_luck%'
+  - '&1 Sabiduría: &f%aureliumskills_wisdom%'
+  - '&5 Resistencia: &f%aureliumskills_toughness%'
+
