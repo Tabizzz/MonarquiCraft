@@ -1,6 +1,9 @@
 package me.tabizzz.monarquicraft.Data;
 
 import me.tabizzz.monarquicraft.Config.ConfigAccessor;
+import me.tabizzz.monarquicraft.Config.Messages;
+import me.tabizzz.monarquicraft.MonarquiCraft;
+import me.tabizzz.monarquicraft.Utils.MessageUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -30,6 +33,7 @@ public class PlayerManager {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				MonarquiCraft.getPlugin().getLogger().info("Loading saved data for player " + player.getName());
 				var file = new ConfigAccessor(plugin, "data/players/" + player.getUniqueId());
 				var config = file.getConfig();
 				var mcplayer = new MCPlayer();
@@ -44,8 +48,7 @@ public class PlayerManager {
 				}
 
 				if(mcplayer.reservedItems.size() > 0) {
-					player.sendMessage(ChatColor.GREEN + "Tienes items sin reclamar en tu buzón, usa " + ChatColor.YELLOW + "/mc claim " + ChatColor.GREEN +
-							"para reclamarlos");
+					player.sendMessage(MessageUtils.parseMessage(Messages.playerItemsForClaim, player));
 				}
 
 				playerData.put(player.getUniqueId(), mcplayer);
@@ -59,6 +62,7 @@ public class PlayerManager {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
+				MonarquiCraft.getPlugin().getLogger().info("Saving data for player " + player.getName());
 				var file = new ConfigAccessor(plugin, "data/players/" + player.getUniqueId());
 				var config = file.getConfig();
 

@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
 import me.tabizzz.monarquicraft.Config.MCConfig;
+import me.tabizzz.monarquicraft.Config.MessagesConfig;
 import me.tabizzz.monarquicraft.Data.PlayerManager;
 import me.tabizzz.monarquicraft.Executables.ExecutableManager;
 import me.tabizzz.monarquicraft.Items.ItemRegistry;
@@ -27,6 +28,7 @@ public final class MonarquiCraft extends JavaPlugin {
 	private PlayerManager playerManager;
 
 	private MCConfig mcConfig;
+	private MessagesConfig messagesConfig;
 	private InventoryManager inventoryManager;
 
 	@Override
@@ -41,6 +43,7 @@ public final class MonarquiCraft extends JavaPlugin {
 		playerManager = new PlayerManager(this);
 		mcConfig = new MCConfig(this);
 		inventoryManager = new InventoryManager(this);
+		messagesConfig = new MessagesConfig(this);
 
 		registerCommands();
 		registerListeners();
@@ -78,6 +81,7 @@ public final class MonarquiCraft extends JavaPlugin {
 	public void reload() {
 		getLogger().info("Loading from files");
 		mcConfig.reload();
+		messagesConfig.reload();
 
 		itemRegistry.clearAll();
 		itemRegistry.loadFromFiles();
@@ -119,4 +123,8 @@ public final class MonarquiCraft extends JavaPlugin {
 	}
 
 	public InventoryManager getInventoryManager() { return inventoryManager; }
+
+	public MessagesConfig getMessagesConfig() {
+		return messagesConfig;
+	}
 }

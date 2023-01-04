@@ -1,9 +1,11 @@
 package me.tabizzz.monarquicraft.Listeners;
 
 import com.archyx.aureliumskills.util.armor.ArmorEquipEvent;
+import me.tabizzz.monarquicraft.Config.Messages;
 import me.tabizzz.monarquicraft.Data.MCPlayer;
 import me.tabizzz.monarquicraft.Items.MCItem;
 import me.tabizzz.monarquicraft.Utils.MCItemUtils;
+import me.tabizzz.monarquicraft.Utils.MessageUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -72,11 +74,7 @@ public class ItemLevelListener implements Listener {
 			var mcitem = new MCItem(item);
 			if (mcitem.isCanlevel() && player.getLevel() < mcitem.getLevel()) {
 				event.setCancelled(true);
-
-				var t1 = Component.text(ChatColor.RED + "Necesitas tener nivel " + ChatColor.GOLD + mcitem.getLevel() + ChatColor.RED + " para usar ")
-						.append(MCItemUtils.createDisplay(player.getPlayer(), item));
-
-				player.getPlayer().sendMessage(t1);
+				player.getPlayer().sendMessage(MessageUtils.parseMessage(Messages.itemRequireLevel, player.getPlayer(), item, "level", mcitem.getLevel() + ""));
 				return true;
 			}
 		}

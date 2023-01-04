@@ -11,6 +11,7 @@ import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.event.inventory.PrepareSmithingEvent;
 
+@SuppressWarnings("deprecation")
 public class InventoryListener implements Listener {
 
 	@EventHandler

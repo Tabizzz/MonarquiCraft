@@ -253,7 +253,7 @@ public class ItemLore {
 
 	private void writeInfo() {
 		if(mcitem.canlevel || mcitem._class != Class.NONE || !mcitem.lore.isEmpty()) {
-			lore.add("&7&l&m-------&7<&7&lInfo del Equipo&7>&7&l&m-------");
+			lore.add("&7&l&m---------&7<&7&lInformación&7>&7&l&m---------");
 			var line1 = "&7";
 			if (mcitem.canlevel) {
 				line1 += "Nivel: &f" + mcitem.level + " &7";
