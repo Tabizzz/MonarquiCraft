@@ -1,11 +1,6 @@
 package me.tabizzz.monarquicraft.Config;
 
 import me.tabizzz.monarquicraft.MonarquiCraft;
-import me.tabizzz.monarquicraft.Utils.MCItemUtils;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextReplacementConfig;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.ConcurrentHashMap;

@@ -76,9 +76,7 @@ public class MonarquiCraftCommand extends BaseCommand {
 	@CommandCompletion("@players")
 	@Description("Inspecciona a otro jugador.")
 	public static void Inspect(Player sender,@Flags("other") Player target ){
-		if(sender != null && target != null) {
-			InspectMenu.Open(sender, target);
-		}
+		InspectCommand.Inspect(sender, target);
 	}
 
 	@Subcommand("offhand")
@@ -89,14 +87,5 @@ public class MonarquiCraftCommand extends BaseCommand {
 
 		sender.getInventory().setItemInMainHand(off);
 		sender.getInventory().setItemInOffHand(main);
-	}
-
-	@Subcommand("rastrear")
-	@CommandCompletion("@players")
-	@Description("Rastrea a un jugador si tiene un bounty")
-	public static void Rastrear(Player sender, @Flags("other") Player target ){
-		if(sender != null && target != null) {
-			BrujulaMagica.setTarget(sender, target);
-		}
 	}
 }

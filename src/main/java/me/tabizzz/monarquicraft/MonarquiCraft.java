@@ -3,6 +3,8 @@ package me.tabizzz.monarquicraft;
 import com.archyx.aureliumskills.acf.PaperCommandManager;
 import com.google.common.collect.ImmutableList;
 import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
+import me.tabizzz.monarquicraft.Commands.BountyCommand;
+import me.tabizzz.monarquicraft.Commands.InspectCommand;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
 import me.tabizzz.monarquicraft.Config.MCConfig;
 import me.tabizzz.monarquicraft.Config.MessagesConfig;
@@ -98,6 +100,8 @@ public final class MonarquiCraft extends JavaPlugin {
 
 		// comandos de monarquicraft
 		commandManager.registerCommand(new MonarquiCraftCommand());
+		commandManager.registerCommand(new InspectCommand());
+		commandManager.registerCommand(new BountyCommand());
 	}
 
 	@Override
