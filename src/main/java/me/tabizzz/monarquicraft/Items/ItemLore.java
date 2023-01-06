@@ -50,9 +50,7 @@ public class ItemLore {
 		writeMultipliers();
 		writeRequirements();
 
-		for (int i = 0; i < lore.size(); i++) {
-			lore.set(i, lore.get(i).replace('&', '§'));
-		}
+		lore.replaceAll(s -> s.replace('&', '§'));
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 	}
@@ -185,6 +183,7 @@ public class ItemLore {
 	}
 
 	private void writeEnchants() {
+		if(mcitem.hideEnchants) return;
 		var enchants = meta.getEnchants();
 		if(enchants.size() > 0) {
 			lore.add("&7&l&m-------&7<&5&lEncantamientos&7>&7&l&m--------");

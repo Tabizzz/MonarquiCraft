@@ -39,6 +39,8 @@ public class MCItem
 
 	String ei;
 
+	boolean hideEnchants;
+
 	public MCItem(ItemStack item) {
 		this.item = item;
 		_class = Class.NONE;

@@ -33,6 +33,7 @@ public class MessagesConfig {
 			}
 		}
 	}
+
 	public String getMessage(Messages message) {
 		return messages.getOrDefault(message, "");
 	}

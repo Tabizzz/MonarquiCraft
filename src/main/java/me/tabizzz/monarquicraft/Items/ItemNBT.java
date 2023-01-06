@@ -112,6 +112,8 @@ public class ItemNBT {
 
 		nbt.setBoolean("baseattributes", mcitem.baseattributes);
 
+		nbt.setBoolean("hideenchants", mcitem.hideEnchants);
+
 		nbt.setString("class", mcitem._class.name());
 
 		nbt.getStringList("lore").addAll(mcitem.lore);
@@ -170,6 +172,7 @@ public class ItemNBT {
 			}
 
 			mcItem.baseattributes = nbt.getBoolean("baseattributes");
+			mcItem.hideEnchants = nbt.getBoolean("hideenchants");
 
 			var classname = nbt.getString("class");
 			mcItem._class = Class.valueOf(classname);

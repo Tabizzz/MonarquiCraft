@@ -7,6 +7,7 @@ import me.tabizzz.monarquicraft.MonarquiCraft;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.EnchantmentWrapper;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -29,6 +30,8 @@ public class ItemLoader {
 
 		var canlevel = config.getBoolean("canlevel");
 		var level = config.getInt("level");
+
+		var hideEnchants = config.getBoolean("hideenchants");
 
 		var baseattributes = config.getBoolean("baseattributes");
 
@@ -106,6 +109,24 @@ public class ItemLoader {
 			}
 		}
 
+		var item =  new ItemStack(material);
+
+		var enchantsSection = config.getConfigurationSection("enchants");
+		if(enchantsSection != null) {
+			for (var key : enchantsSection.getKeys(false)) {
+				try {
+					var enchant_name = key.toLowerCase();
+
+					var enchant = new EnchantmentWrapper(enchant_name);
+					var value = enchantsSection.getInt(key);
+					item.addUnsafeEnchantment(enchant, value);
+
+				} catch (IllegalArgumentException ignored) {
+					MonarquiCraft.getPlugin().getLogger().warning("Unable to load item " + id + ": invalid attribute name (" + key + ")");
+				}
+			}
+		}
+
 		// write parsed data into a MCItem
 		var mcitem = new MCItem();
 		mcitem.name = name;
@@ -113,7 +134,7 @@ public class ItemLoader {
 		mcitem.canlevel = canlevel;
 		mcitem.level = level;
 		mcitem.baseattributes = baseattributes;
-		mcitem.item = new ItemStack(material);
+		mcitem.item = item;
 		mcitem.ei = ei;
 		mcitem._class = clasS;
 		mcitem.lore = lore;
@@ -121,6 +142,7 @@ public class ItemLoader {
 		mcitem.multipliers = multipliers;
 		mcitem.requirements = requirements;
 		mcitem.attributes = attributes;
+		mcitem.hideEnchants = hideEnchants;
 
 		return mcitem.getItem();
 	}
