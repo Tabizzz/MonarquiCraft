@@ -3,7 +3,6 @@ package me.tabizzz.monarquicraft.Menus;
 import dev.dbassett.skullcreator.SkullCreator;
 import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
 import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
-import io.github.rysefoxx.inventory.plugin.enums.DisabledInventoryClick;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.tabizzz.monarquicraft.MonarquiCraft;
