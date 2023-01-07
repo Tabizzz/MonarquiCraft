@@ -28,6 +28,7 @@ public class MCItemUtils {
 	}
 
 	public static boolean give(Player player, ItemStack item) {
+		if(!io.lumine.mythic.bukkit.utils.items.ItemUtils.isValid(item)) return true;
 		var res = ItemUtils.addItemToInventory(player, item);
 		if(res != null) {
 			player.sendMessage(MessageUtils.parseMessage(Messages.playerNoSpace, player, item));
@@ -49,6 +50,13 @@ public class MCItemUtils {
 		var mcitem = createFromVanilla(item);
 		var lore = new ItemLore(mcitem);
 		lore.writeAll();
+	}
+
+	public static boolean isMCItem(ItemStack mcitem, String id) {
+		if(mcitem == null || mcitem.getType() == Material.AIR) return false;
+		var nbt = new NBTItem(mcitem);
+		var mc = nbt.hasKey("MonarquiCraft");
+		return mc && nbt.getCompound("MonarquiCraft").getString("id").equals(id);
 	}
 
 	public static boolean isMCItem(ItemStack mcitem) {

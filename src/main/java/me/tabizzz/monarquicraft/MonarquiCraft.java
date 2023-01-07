@@ -6,6 +6,7 @@ import io.github.rysefoxx.inventory.plugin.pagination.InventoryManager;
 import me.tabizzz.monarquicraft.Commands.BountyCommand;
 import me.tabizzz.monarquicraft.Commands.InspectCommand;
 import me.tabizzz.monarquicraft.Commands.MonarquiCraftCommand;
+import me.tabizzz.monarquicraft.Commands.MonarquicraftMenus;
 import me.tabizzz.monarquicraft.Config.MCConfig;
 import me.tabizzz.monarquicraft.Config.MessagesConfig;
 import me.tabizzz.monarquicraft.Data.PlayerManager;
@@ -70,6 +71,7 @@ public final class MonarquiCraft extends JavaPlugin {
 
 		var manager = getServer().getPluginManager();
 		ExecutableManager.registerEvents(manager, this);
+		manager.registerEvents(new KKListener(), this);
 		manager.registerEvents(new InventoryListener(), this);
 		manager.registerEvents(new PlayerDataListener(), this);
 		manager.registerEvents(new ItemLevelListener(), this);
@@ -102,6 +104,7 @@ public final class MonarquiCraft extends JavaPlugin {
 		commandManager.registerCommand(new MonarquiCraftCommand());
 		commandManager.registerCommand(new InspectCommand());
 		commandManager.registerCommand(new BountyCommand());
+		commandManager.registerCommand(new MonarquicraftMenus());
 	}
 
 	@Override
