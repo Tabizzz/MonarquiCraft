@@ -3,6 +3,7 @@ package me.tabizzz.monarquicraft.Menus;
 import dev.dbassett.skullcreator.SkullCreator;
 import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
 import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
+import io.github.rysefoxx.inventory.plugin.enums.DisabledInventoryClick;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.tabizzz.monarquicraft.MonarquiCraft;
@@ -11,20 +12,38 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.Optional;
 
 @SuppressWarnings("deprecation")
 public class InspectMenu implements InventoryProvider {
 
+	private static final String menuId = "inspect";
 	private static final RyseInventory Menu = RyseInventory.builder()
 			.rows(6)
 			.provider(new InspectMenu())
 			.title("Inspeccionando")
 			.build(MonarquiCraft.getPlugin());
 
-	public static void Open(Player viewer, Player target) {
+	public static void Open(Player player, Player target) {
 		var map = new HashMap<String, Object>();
 		map.put("target", target);
-		Menu.open(map, viewer);
+
+		Optional<RyseInventory> inventory = MonarquiCraft.getPlugin().getInventoryManager().getInventory(menuId);
+
+		if (inventory.isPresent()) {
+			inventory.get().open(map, player);
+			return;
+		}
+
+		RyseInventory.builder()
+				.rows(6)
+				.identifier(menuId)
+				.provider(new InspectMenu())
+				.title("Inspeccionando")
+				.permanentCache()
+				.build(MonarquiCraft.getPlugin())
+				.open(map, player);
+
 	}
 
 	@Override
