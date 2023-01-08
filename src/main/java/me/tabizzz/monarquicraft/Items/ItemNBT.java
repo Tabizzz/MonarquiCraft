@@ -63,7 +63,7 @@ public class ItemNBT {
 
 			// add extra attributes
 			for (var add: mcitem.attributes.entrySet()) {
-				meta.addAttributeModifier(add.getKey(), new AttributeModifier(UUID.randomUUID(), "mcextra.custom", add.getValue(),
+				meta.addAttributeModifier(add.getKey(), new AttributeModifier(AttributeUtils.UUIDForAttribute(add.getKey()), "mcextra.custom", add.getValue(),
 						AttributeModifier.Operation.ADD_NUMBER, slot));
 			}
 		}
