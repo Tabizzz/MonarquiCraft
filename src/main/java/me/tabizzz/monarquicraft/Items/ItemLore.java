@@ -17,9 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ItemLore {
 
@@ -77,7 +75,7 @@ public class ItemLore {
 		if(attributes.size() > 0) {
 			lore.add("&7&l&m----------&7<&e&lAtributos&7>&7&l&m----------");
 			var df = new DecimalFormat("0.##");
-			for (var attribute: attributes.entrySet()) {
+			for (var attribute: attributes.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
 				lore.add((type == ModifierType.ARMOR ? "&9" : "&2") + getAttributeName(attribute.getKey()) + ": " + df.format(attribute.getValue()));
 			}
 		}
@@ -124,7 +122,7 @@ public class ItemLore {
 			lore.add("&7&l&m---------&7<&c&lRequisitos&7>&7&l&m----------");
 			var requirements = new Requirements(AureliumAPI.getPlugin());
 			var temp = new ItemStack(Material.EGG);
-			for (var stat: mcitem.requirements.entrySet()) {
+			for (var stat: mcitem.requirements.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
 				if(stat.getValue() > 0) {
 					requirements.addLore(type, temp, stat.getKey(), stat.getValue(), Lang.getDefaultLanguage());
 				}
@@ -147,7 +145,7 @@ public class ItemLore {
 			lore.add("&7&l&m-------&7<&b&lBonus de Skills&7>&7&l&m-------");
 			var multiplier = new Multipliers(AureliumAPI.getPlugin());
 			var temp = new ItemStack(Material.EGG);
-			for (var stat: mcitem.multipliers.entrySet()) {
+			for (var stat: mcitem.multipliers.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
 				if(stat.getValue() > 0) {
 					multiplier.addLore(type, temp, stat.getKey(), stat.getValue(), Lang.getDefaultLanguage());
 				}
@@ -171,7 +169,7 @@ public class ItemLore {
 			lore.add("&7&l&m--------&7<&a&lEstadisticas&7>&7&l&m---------");
 			var modifier = new Modifiers(AureliumAPI.getPlugin());
 			var temp = new ItemStack(Material.EGG);
-			for (var stat: mcitem.stats.entrySet()) {
+			for (var stat: mcitem.stats.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
 				if(stat.getValue() != 0) {
 					modifier.addLore(type, temp, stat.getKey(), stat.getValue(), Lang.getDefaultLanguage());
 				}
@@ -187,7 +185,7 @@ public class ItemLore {
 		var enchants = meta.getEnchants();
 		if(enchants.size() > 0) {
 			lore.add("&7&l&m-------&7<&5&lEncantamientos&7>&7&l&m--------");
-			for (var enchant : enchants.entrySet()) {
+			for (var enchant : enchants.entrySet().stream().sorted(Comparator.comparing(enchantmentIntegerEntry -> enchantmentIntegerEntry.getKey().getKey())).toList()) {
 				var str = "";
 				if (enchant.getKey().isCursed() || enchant.getKey().getKey().getKey().contains("curse")) {
 					str = "&c☠";
