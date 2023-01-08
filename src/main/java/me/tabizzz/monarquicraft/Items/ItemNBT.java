@@ -14,6 +14,7 @@ import me.tabizzz.monarquicraft.Utils.AttributeUtils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 
+import java.util.Map;
 import java.util.UUID;
 
 import static org.bukkit.inventory.ItemFlag.*;
@@ -56,13 +57,13 @@ public class ItemNBT {
 			// add default attributes
 			if(mcitem.baseattributes) {
 				var toadd = AttributeUtils.getDefaultAttributeModifiers(item.getType(), slot);
-				for (var add: toadd.entrySet()) {
+				for (var add: toadd.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
 					meta.addAttributeModifier(add.getKey(), add.getValue());
 				}
 			}
 
 			// add extra attributes
-			for (var add: mcitem.attributes.entrySet()) {
+			for (var add: mcitem.attributes.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
 				meta.addAttributeModifier(add.getKey(), new AttributeModifier(AttributeUtils.UUIDForAttribute(add.getKey()), "mcextra.custom", add.getValue(),
 						AttributeModifier.Operation.ADD_NUMBER, slot));
 			}
@@ -74,21 +75,21 @@ public class ItemNBT {
 		// stats
 		var modifier = new Modifiers(AureliumAPI.getPlugin());
 		item = modifier.removeAllModifiers(type, item);
-		for (var stat : mcitem.stats.entrySet()) {
+		for (var stat : mcitem.stats.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
 			item = modifier.addModifier(type, item, stat.getKey(), stat.getValue());
 		}
 
 		// multipliers
 		var multiplier = new Multipliers(AureliumAPI.getPlugin());
 		item = multiplier.removeAllMultipliers(type, item);
-		for (var skill : mcitem.multipliers.entrySet()) {
+		for (var skill : mcitem.multipliers.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
 			item = multiplier.addMultiplier(type, item, skill.getKey(), skill.getValue());
 		}
 
 		// requirements
 		var requirement = new Requirements(AureliumAPI.getPlugin());
 		item = requirement.removeAllRequirements(type, item);
-		for (var skill : mcitem.requirements.entrySet()) {
+		for (var skill : mcitem.requirements.entrySet().stream().sorted(Map.Entry.comparingByKey()).toList()) {
 			item = requirement.addRequirement(type, item, skill.getKey(), skill.getValue());
 		}
 
