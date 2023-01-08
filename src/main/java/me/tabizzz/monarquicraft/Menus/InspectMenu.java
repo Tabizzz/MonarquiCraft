@@ -3,11 +3,13 @@ package me.tabizzz.monarquicraft.Menus;
 import dev.dbassett.skullcreator.SkullCreator;
 import io.github.rysefoxx.inventory.plugin.content.InventoryContents;
 import io.github.rysefoxx.inventory.plugin.content.InventoryProvider;
+import io.github.rysefoxx.inventory.plugin.other.EventCreator;
 import io.github.rysefoxx.inventory.plugin.pagination.RyseInventory;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.tabizzz.monarquicraft.MonarquiCraft;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -35,6 +37,9 @@ public class InspectMenu implements InventoryProvider {
 				.provider(new InspectMenu())
 				.title("Inspeccionando")
 				.permanentCache()
+				.listener(new EventCreator<>(InventoryClickEvent.class, event -> {
+					event.setCancelled(true);
+				}))
 				.build(MonarquiCraft.getPlugin())
 				.open(map, player);
 
