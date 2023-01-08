@@ -17,12 +17,6 @@ import java.util.Optional;
 public class InspectMenu implements InventoryProvider {
 
 	private static final String menuId = "inspect";
-	private static final RyseInventory Menu = RyseInventory.builder()
-			.rows(6)
-			.provider(new InspectMenu())
-			.title("Inspeccionando")
-			.build(MonarquiCraft.getPlugin());
-
 	public static void Open(Player player, Player target) {
 		var map = new HashMap<String, Object>();
 		map.put("target", target);
@@ -45,11 +39,17 @@ public class InspectMenu implements InventoryProvider {
 
 	}
 
+	public static void close(Player player) {
+		Optional<RyseInventory> inventory = MonarquiCraft.getPlugin().getInventoryManager().getInventory(menuId);
+
+		inventory.ifPresent(ryseInventory -> ryseInventory.close(player));
+	}
+
 	@Override
 	public void init(Player player, InventoryContents contents) {
 		var target = contents.<Player>getProperty("target");
 		if(target == null) {
-			Menu.close(player);
+			close(player);
 			return;
 		}
 		var fill = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
