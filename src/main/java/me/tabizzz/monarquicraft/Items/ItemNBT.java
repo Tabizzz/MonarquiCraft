@@ -204,7 +204,7 @@ public class ItemNBT {
 			var attributes = nbt.getCompound("attributes");
 			for (var reg : attributes.getKeys()) {
 				var stat = Attribute.valueOf(reg);
-				var value = requirements.getDouble(reg);
+				var value = attributes.getDouble(reg);
 				mcItem.attributes.put(stat, value);
 			}
 
